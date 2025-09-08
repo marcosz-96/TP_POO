@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 public class Conexion {
     private static final String URL = "jdbc:msql://localhot:3306/farmacia";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "12345678";
     
     public static Connection getConnection(){
         try{
