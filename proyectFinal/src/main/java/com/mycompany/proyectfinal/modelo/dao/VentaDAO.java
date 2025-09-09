@@ -2,6 +2,7 @@ package com.mycompany.proyectfinal.modelo.dao;
 
 // Se implementa la interfaz
 
+import com.mycompany.proyectfinal.modelo.conexionDB.Conexion;
 import com.mycompany.proyectfinal.modelo.Venta;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 

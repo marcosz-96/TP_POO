@@ -2,6 +2,7 @@ package com.mycompany.proyectfinal.modelo.dao;
 
 // Se implementa la Interfaz
 
+import com.mycompany.proyectfinal.modelo.conexionDB.Conexion;
 import com.mycompany.proyectfinal.modelo.Medicamento;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 

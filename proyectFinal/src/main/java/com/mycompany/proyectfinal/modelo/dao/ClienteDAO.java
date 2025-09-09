@@ -1,5 +1,6 @@
 package com.mycompany.proyectfinal.modelo.dao;
 
+import com.mycompany.proyectfinal.modelo.conexionDB.Conexion;
 import com.mycompany.proyectfinal.modelo.Cliente;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 

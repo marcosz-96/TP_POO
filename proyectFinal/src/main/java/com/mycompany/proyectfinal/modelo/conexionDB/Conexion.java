@@ -1,4 +1,4 @@
-package com.mycompany.proyectfinal.modelo.dao;
+package com.mycompany.proyectfinal.modelo.conexionDB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
