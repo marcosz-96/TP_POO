@@ -2,21 +2,23 @@ package com.mycompany.proyectfinal.modelo.conexionDB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 // Se crea la clase que implementa la conceccion con la DB
 
 public class Conexion {
-    private static final String URL = "jdbc:msql://localhot:3306/farmacia";
+    private static final String URL = "jdbc:mysql://localhost:3306/farmacia";
     private static final String USER = "root";
     private static final String PASS = "12345678";
     
-    public static Connection getConnection(){
+      public static Connection getConnection(){
+        Connection conn = null;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(URL, USER, PASS);
-        }catch(Exception e){
-            System.out.println("[ALERT]: Error de coneccion: " + e.getMessage());
-            return null;
+            conn = DriverManager.getConnection(URL, USER, PASS);
+            System.out.println("[ATENTION] ¡Conexion establecida con exito!");
+        }catch(SQLException e){
+            System.out.println("[ALERT]: Error de conexion.");
         }
+        return conn;
     }
 }

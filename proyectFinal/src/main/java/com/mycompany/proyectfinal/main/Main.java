@@ -1,16 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.proyectfinal.main;
 
-/**
- *
- * @author Usuario
- */
+import com.mycompany.proyectfinal.modelo.conexionDB.Conexion;
+import com.mycompany.proyectfinal.vista.FrmVentas;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("");
+        Conexion.getConnection();
+        
+        FrmVentas ventas = new FrmVentas();
+        
+        
+        ventas.setVisible(true);
     }
 }
