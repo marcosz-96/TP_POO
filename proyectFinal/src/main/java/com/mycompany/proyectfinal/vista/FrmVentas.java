@@ -61,17 +61,17 @@ public class FrmVentas extends javax.swing.JFrame {
         setTitle("Gestion de Ventas");
         setBackground(new java.awt.Color(51, 255, 204));
 
-        lblTitulo.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         lblTitulo.setText("Gestion de Ventas");
         lblTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        lblCliente.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        lblCliente.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         lblCliente.setText("Cliente:");
 
-        lblMedicamento.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        lblMedicamento.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         lblMedicamento.setText("Medicamento:");
 
-        lblCantidad.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        lblCantidad.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         lblCantidad.setText("Cantidad:");
 
         cbCliente.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
@@ -90,9 +90,14 @@ public class FrmVentas extends javax.swing.JFrame {
 
         txtCantidad.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         txtCantidad.setText("N°");
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
 
-        btnAgregar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        btnAgregar.setText("Agregar");
+        btnAgregar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAgregar.setText("Agregar Detalle");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -102,6 +107,12 @@ public class FrmVentas extends javax.swing.JFrame {
         tbDetalles.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         tbDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -116,13 +127,18 @@ public class FrmVentas extends javax.swing.JFrame {
         lblTotal.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         lblTotal.setText("Total: $0.0");
 
-        btnFinalizarVenta.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        btnFinalizarVenta.setText("Finalizar");
+        btnFinalizarVenta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnFinalizarVenta.setText("Finalizar Venta");
+        btnFinalizarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarVentaActionPerformed(evt);
+            }
+        });
 
-        btnCancelar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnCancelar.setText("Cancelar Venta");
 
-        btnListaVenta.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnListaVenta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnListaVenta.setText("Lista de Ventas");
         btnListaVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,33 +158,34 @@ public class FrmVentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addGroup(PanelVentasLayout.createSequentialGroup()
+                        .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVentasLayout.createSequentialGroup()
+                                .addComponent(lblCliente)
+                                .addGap(18, 18, 18))
+                            .addGroup(PanelVentasLayout.createSequentialGroup()
+                                .addComponent(lblCantidad)
+                                .addGap(7, 7, 7)))
+                        .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCantidad)
+                            .addComponent(cbCliente, 0, 140, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMedicamento)
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbMedicamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVentasLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTotal, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVentasLayout.createSequentialGroup()
                                 .addComponent(btnCancelar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnFinalizarVenta))))
+                                .addGap(40, 40, 40)
+                                .addComponent(btnFinalizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(PanelVentasLayout.createSequentialGroup()
-                        .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelVentasLayout.createSequentialGroup()
-                                .addComponent(lblCliente)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelVentasLayout.createSequentialGroup()
-                                .addComponent(lblMedicamento)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelVentasLayout.createSequentialGroup()
-                                .addComponent(lblCantidad)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(PanelVentasLayout.createSequentialGroup()
-                        .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnListaVenta)))
+                        .addComponent(btnListaVenta)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelVentasLayout.setVerticalGroup(
@@ -179,28 +196,24 @@ public class FrmVentas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCliente)
-                    .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMedicamento))
                 .addGap(18, 18, 18)
                 .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMedicamento)
-                    .addComponent(cbMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCantidad)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgregar))
                 .addGap(18, 18, 18)
-                .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnListaVenta))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotal)
                 .addGap(18, 18, 18)
                 .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFinalizarVenta)
-                    .addComponent(btnCancelar))
-                .addGap(10, 10, 10))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnListaVenta))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -226,46 +239,20 @@ public class FrmVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_cbMedicamentoActionPerformed
 
     private void btnListaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaVentaActionPerformed
-       DefaultTableModel modelo = (DefaultTableModel) tbDetalles.getModel();
-       int filas = modelo.getRowCount();
 
-       if(filas == 0) {
-           JOptionPane.showMessageDialog(this, "No hay productos agregados");
-           return;
-       }
-
-       StringBuilder lista = new StringBuilder("Productos agregados:\n");
-       for(int i = 0; i < filas; i++) {
-           String producto = modelo.getValueAt(i, 0).toString();
-           String cantidad = modelo.getValueAt(i, 1).toString();
-           lista.append(producto).append(" - Cantidad: ").append(cantidad).append("\n");
-       }
-
-       JOptionPane.showMessageDialog(this, lista.toString());
-   
     }//GEN-LAST:event_btnListaVentaActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-       String producto = lblMedicamento.getText();
-       String cantidad = lblCantidad.getText();
-
-       if(producto.isEmpty() || cantidad.isEmpty()) {
-           JOptionPane.showMessageDialog(this, "Por favor ingrese producto y cantidad");
-           return;
-       }
-
-       // Obtener el modelo de la tabla
-       DefaultTableModel modelo = (DefaultTableModel) tbDetalles.getModel();
-
-       // Agregar fila a la tabla (por ahora sin precio ni subtotal)
-       modelo.addRow(new Object[]{producto, cantidad});
-
-       // Limpiar campos
-       lblMedicamento.setText("");
-       lblCantidad.setText("");
-   
    
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
+
+    private void btnFinalizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFinalizarVentaActionPerformed
 
     /**
      * @param args the command line arguments
