@@ -7,8 +7,6 @@ public class FrmReportes extends javax.swing.JFrame {
     public FrmReportes() {
         
         setTitle("Reportes de Ventas");
-        setSize(400,200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
         initComponents();
@@ -27,7 +25,7 @@ public class FrmReportes extends javax.swing.JFrame {
         btnGenerarReporte = new javax.swing.JButton();
         tblReportesGenerados = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        btnSalir = new javax.swing.JButton();
+        btnVolverAlMenu = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -45,13 +43,13 @@ public class FrmReportes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
-        lblTitulo.setText("Reportes de Ventas");
+        lblTitulo.setText("Reportes Generales");
 
         lblReporte.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        lblReporte.setText("Tipo de Reporte:");
+        lblReporte.setText("Reportes de:");
 
         cbTipoReporte.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        cbTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medicamentos", "Clientes", "Ventas" }));
+        cbTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar:", "Medicamentos", "Clientes", "Ventas" }));
         cbTipoReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTipoReporteActionPerformed(evt);
@@ -72,6 +70,16 @@ public class FrmReportes extends javax.swing.JFrame {
                 {null},
                 {null},
                 {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
                 {null}
             },
             new String [] {
@@ -79,14 +87,6 @@ public class FrmReportes extends javax.swing.JFrame {
             }
         ));
         tblReportesGenerados.setViewportView(jTable2);
-
-        btnSalir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,10 +111,7 @@ public class FrmReportes extends javax.swing.JFrame {
                             .addComponent(tblReportesGenerados, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnGenerarReporte))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnGenerarReporte)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,21 +125,35 @@ public class FrmReportes extends javax.swing.JFrame {
                     .addComponent(cbTipoReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGenerarReporte))
                 .addGap(18, 18, 18)
-                .addComponent(tblReportesGenerados, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tblReportesGenerados, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        btnVolverAlMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnVolverAlMenu.setText("Menu Principal");
+        btnVolverAlMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverAlMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolverAlMenu)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolverAlMenu)
+                .addContainerGap())
         );
 
         pack();
@@ -152,9 +163,11 @@ public class FrmReportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbTipoReporteActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSalirActionPerformed
+    private void btnVolverAlMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAlMenuActionPerformed
+        FrmMenu frmMenu = new FrmMenu();
+        frmMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverAlMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,7 +175,7 @@ public class FrmReportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerarReporte;
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnVolverAlMenu;
     private javax.swing.JComboBox<String> cbTipoReporte;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

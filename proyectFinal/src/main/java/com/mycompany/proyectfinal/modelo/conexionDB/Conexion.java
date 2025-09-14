@@ -15,9 +15,9 @@ public class Conexion {
         Connection conn = null;
         try{
             conn = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println("[ATENTION] ¡Conexion establecida con exito!");
+            System.out.println("[ATENCION]: Conexion establecida con exito.");
         }catch(SQLException e){
-            System.out.println("[ALERT]: Error de conexion.");
+            System.out.println("[ATENCION]: Error de conexion.");
         }
         return conn;
     }
