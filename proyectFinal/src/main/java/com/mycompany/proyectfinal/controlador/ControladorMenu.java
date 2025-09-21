@@ -1,4 +1,4 @@
-package com.mycompany.proyectfinal.controlador;
+/*package com.mycompany.proyectfinal.controlador;
 
 import com.mycompany.proyectfinal.vista.*;
 import java.awt.event.ActionEvent;
@@ -35,4 +35,4 @@ public class ControladorMenu implements ActionListener{
             System.exit(0);
         }
     }
-}
+}*/

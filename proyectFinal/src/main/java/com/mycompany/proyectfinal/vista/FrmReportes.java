@@ -7,7 +7,6 @@ public class FrmReportes extends javax.swing.JFrame {
     public FrmReportes() {
         
         setTitle("Reportes de Ventas");
-        setLocationRelativeTo(null);
         
         initComponents();
     }
@@ -22,7 +21,7 @@ public class FrmReportes extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         lblReporte = new javax.swing.JLabel();
         cbTipoReporte = new javax.swing.JComboBox<>();
-        btnGenerarReporte = new javax.swing.JButton();
+        btnGenerarInforme = new javax.swing.JButton();
         tblReportesGenerados = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnVolverAlMenu = new javax.swing.JButton();
@@ -43,10 +42,11 @@ public class FrmReportes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Reportes Generales");
 
-        lblReporte.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        lblReporte.setText("Reportes de:");
+        lblReporte.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        lblReporte.setText("Informe de:");
 
         cbTipoReporte.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         cbTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar:", "Medicamentos", "Clientes", "Ventas" }));
@@ -56,8 +56,8 @@ public class FrmReportes extends javax.swing.JFrame {
             }
         });
 
-        btnGenerarReporte.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnGenerarReporte.setText("Generar Reporte");
+        btnGenerarInforme.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnGenerarInforme.setText("Generar Informe");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,26 +92,17 @@ public class FrmReportes extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblReporte)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbTipoReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(201, 201, 201)
-                                .addComponent(lblTitulo)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tblReportesGenerados, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnGenerarReporte)))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tblReportesGenerados)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(cbTipoReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGenerarInforme))
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -119,13 +110,13 @@ public class FrmReportes extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblReporte)
                     .addComponent(cbTipoReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenerarReporte))
+                    .addComponent(lblReporte)
+                    .addComponent(btnGenerarInforme))
                 .addGap(18, 18, 18)
-                .addComponent(tblReportesGenerados, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addComponent(tblReportesGenerados, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -143,7 +134,7 @@ public class FrmReportes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(421, Short.MAX_VALUE)
                 .addComponent(btnVolverAlMenu)
                 .addContainerGap())
         );
@@ -151,7 +142,7 @@ public class FrmReportes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(btnVolverAlMenu)
                 .addContainerGap())
         );
@@ -174,7 +165,7 @@ public class FrmReportes extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGenerarReporte;
+    private javax.swing.JButton btnGenerarInforme;
     private javax.swing.JButton btnVolverAlMenu;
     private javax.swing.JComboBox<String> cbTipoReporte;
     private javax.swing.JPanel jPanel1;

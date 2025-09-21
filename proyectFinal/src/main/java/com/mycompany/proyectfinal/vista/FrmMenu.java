@@ -7,9 +7,7 @@ public class FrmMenu extends javax.swing.JFrame {
     public FrmMenu() {
         
         setTitle("Menu Principal");
-        setSize(400,200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
         
         initComponents();
     }
@@ -18,6 +16,7 @@ public class FrmMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblVerReportes = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jDesktopPane2 = new javax.swing.JDesktopPane();
         panelMenuPrincipal = new javax.swing.JPanel();
@@ -26,10 +25,13 @@ public class FrmMenu extends javax.swing.JFrame {
         btnInventario = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
         btnVentas = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
+        btnInformes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         lblSubtitulo = new javax.swing.JLabel();
-        lblVerReportes = new javax.swing.JLabel();
+
+        lblVerReportes.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        lblVerReportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblVerReportes.setText("Realizar");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,6 +39,7 @@ public class FrmMenu extends javax.swing.JFrame {
         lblTitulo.setText("FARMACIA RO-TU-MAR");
 
         lblMenu.setFont(new java.awt.Font("Arial Narrow", 0, 24)); // NOI18N
+        lblMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMenu.setText("MENU PRINCIPAL");
 
         btnInventario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -63,11 +66,11 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
 
-        btnReportes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnReportes.setText("Reportes");
-        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+        btnInformes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnInformes.setText("Informes");
+        btnInformes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportesActionPerformed(evt);
+                btnInformesActionPerformed(evt);
             }
         });
 
@@ -83,33 +86,22 @@ public class FrmMenu extends javax.swing.JFrame {
         lblSubtitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSubtitulo.setText("Gestionar");
 
-        lblVerReportes.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        lblVerReportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVerReportes.setText("Realizar");
-
         javax.swing.GroupLayout panelMenuPrincipalLayout = new javax.swing.GroupLayout(panelMenuPrincipal);
         panelMenuPrincipal.setLayout(panelMenuPrincipalLayout);
         panelMenuPrincipalLayout.setHorizontalGroup(
             panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                .addGap(482, 482, 482)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPrincipalLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                        .addComponent(lblSubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(125, 125, 125)
-                        .addComponent(lblVerReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(482, 482, 482)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                        .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(112, 112, 112)
-                        .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(134, 134, 134))
+                        .addContainerGap()
+                        .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblSubtitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPrincipalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,29 +109,31 @@ public class FrmMenu extends javax.swing.JFrame {
                         .addComponent(lblTitulo)
                         .addGap(76, 76, 76))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPrincipalLayout.createSequentialGroup()
-                        .addComponent(lblMenu)
-                        .addGap(215, 215, 215))))
+                        .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(210, 210, 210))))
         );
         panelMenuPrincipalLayout.setVerticalGroup(
             panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(lblTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(lblMenu)
                 .addGap(18, 18, 18)
-                .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSubtitulo)
-                    .addComponent(lblVerReportes))
+                .addComponent(lblSubtitulo)
                 .addGap(18, 18, 18)
-                .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCliente)
-                    .addComponent(btnReportes))
-                .addGap(18, 18, 18)
+                .addComponent(btnCliente)
+                .addGap(50, 50, 50)
                 .addComponent(btnInventario)
-                .addGap(18, 18, 18)
+                .addGap(50, 50, 50)
                 .addComponent(btnVentas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(btnInformes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addContainerGap())
         );
@@ -150,7 +144,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jDesktopPane2.setLayout(jDesktopPane2Layout);
         jDesktopPane2Layout.setHorizontalGroup(
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMenuPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelMenuPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jDesktopPane2Layout.setVerticalGroup(
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,11 +196,11 @@ public class FrmMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVentasActionPerformed
 
-    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+    private void btnInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformesActionPerformed
         FrmReportes frmReportes = new FrmReportes();
         frmReportes.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnReportesActionPerformed
+    }//GEN-LAST:event_btnInformesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -225,7 +219,7 @@ public class FrmMenu extends javax.swing.JFrame {
         return btnVentas;
     }
     public javax.swing.JButton getBtnReportes(){
-        return btnReportes;
+        return btnInformes;
     }
     public javax.swing.JButton getBtnSalir(){
         return btnSalir;
@@ -234,8 +228,8 @@ public class FrmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnInformes;
     private javax.swing.JButton btnInventario;
-    private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVentas;
     private javax.swing.JDesktopPane jDesktopPane1;

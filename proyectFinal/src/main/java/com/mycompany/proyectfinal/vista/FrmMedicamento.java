@@ -1,35 +1,17 @@
 package com.mycompany.proyectfinal.vista;
 
-import com.mycompany.proyectfinal.modelo.conexionDB.Conexion;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class FrmMedicamento extends javax.swing.JFrame {
 
-    DefaultTableModel tablaMedicamentos;
-    Conexion conect = new Conexion();
-    private Connection con;
-    private Statement ps;
-    private ResultSet rs;
-    
-    public FrmMedicamento() {
+    public FrmMedicamento(){
+        
         setTitle("Gestion de Inventario");
-        setLocationRelativeTo(null);
         
         initComponents();
         
-        traerDatosDeDB();
-        
-        /*
-        tablaMedicamentos.addColumn("ID");
-        tablaMedicamentos.addColumn("Nombre");
-        tablaMedicamentos.addColumn("Precio");
-        tablaMedicamentos.addColumn("Stock");
-        this.tblMedicamentos.setModel(tablaMedicamentos);*/
     }
     
     @SuppressWarnings("unchecked")
@@ -38,6 +20,9 @@ public class FrmMedicamento extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         PanelInventario = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         scrollMedicamentos = new javax.swing.JScrollPane();
@@ -51,27 +36,40 @@ public class FrmMedicamento extends javax.swing.JFrame {
         txtID = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
-        btnAgregar = new javax.swing.JButton();
-        tbnEliminar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
+        jRadioButton1.setText("jRadioButton1");
+
+        jScrollPane3.setViewportView(jEditorPane1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Gestion de Inventario");
 
         tblMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"1", "Actron", "1230.88", "60"}
             },
             new String [] {
-                "ID", "Nombre", "Precio", "Stock"
+                "id", "nombre", "precio", "stock"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblMedicamentos);
 
         scrollMedicamentos.setViewportView(jScrollPane2);
@@ -94,30 +92,53 @@ public class FrmMedicamento extends javax.swing.JFrame {
             }
         });
 
-        btnAgregar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                txtIDActionPerformed(evt);
             }
         });
 
-        tbnEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tbnEliminar.setText("Eliminar");
-        tbnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbnEliminarActionPerformed(evt);
+                txtPrecioActionPerformed(evt);
+            }
+        });
+
+        txtStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStockActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
             }
         });
 
         btnEditar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEditar.setText("Editar");
-
-        btnLimpiar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
             }
         });
 
@@ -136,67 +157,67 @@ public class FrmMedicamento extends javax.swing.JFrame {
             .addGroup(PanelInventarioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PanelInventarioLayout.createSequentialGroup()
                         .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollMedicamentos)
+                            .addComponent(scrollMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                             .addGroup(PanelInventarioLayout.createSequentialGroup()
                                 .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(52, 52, 52)
-                                .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtPrecio)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                                .addGap(151, 151, 151)
                                 .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(tbnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInventarioLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtNombre)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInventarioLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInventarioLayout.createSequentialGroup()
+                                        .addGap(49, 49, 49)
+                                        .addComponent(lblStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                            .addComponent(txtStock)
+                                            .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInventarioLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(207, 207, 207))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInventarioLayout.createSequentialGroup()
-                                .addComponent(btnMenuPrincipal)
-                                .addContainerGap())))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnMenuPrincipal)))
+                        .addContainerGap())))
         );
         PanelInventarioLayout.setVerticalGroup(
             PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInventarioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(14, 14, 14)
+                .addGap(18, 45, Short.MAX_VALUE)
                 .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblID)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar))
-                .addGap(18, 18, 18)
-                .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPrecio)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tbnEliminar))
+                    .addComponent(lblPrecio))
                 .addGap(18, 18, 18)
                 .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombre)
                     .addComponent(lblStock)
-                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevo)
+                    .addComponent(btnGuardar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
-                    .addComponent(btnLimpiar))
+                    .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
-                .addComponent(scrollMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                .addGap(31, 31, 31)
+                .addComponent(scrollMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnMenuPrincipal)
                 .addContainerGap())
         );
@@ -209,30 +230,17 @@ public class FrmMedicamento extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        /*String []agregarMedicamento = new String[4];
-            agregarMedicamento[0] = txtID.getText();
-            agregarMedicamento[1] = txtNombre.getText();
-            agregarMedicamento[2] = txtPrecio.getText();
-            agregarMedicamento[3] = txtStock.getText();
-            tablaMedicamentos.addRow(agregarMedicamento);
         
-        if(txtID.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty() || 
-           txtPrecio.getText().trim().isEmpty() || txtStock.getText().trim().isEmpty()){
-            
-            JOptionPane.showMessageDialog(null, "¡ATENCION! Complete todos los campos");   
-        }*/
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
         FrmMenu frmMenu = new FrmMenu();
@@ -240,68 +248,89 @@ public class FrmMedicamento extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtID.setText("");
-        txtNombre.setText("");
-        txtPrecio.setText("");
-        txtStock.setText("");
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+     
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void tbnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnEliminarActionPerformed
-        /*int eliminarFila = tablaMedicamentos.getRowCount();
-        if(eliminarFila >= 0){
-            tablaMedicamentos.removeRow(eliminarFila);
-        }else{
-            JOptionPane.showMessageDialog(null, "¡ATENCION! No hay datos para eliminar");
-        }*/
-    }//GEN-LAST:event_tbnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+       
+    }//GEN-LAST:event_txtIDActionPerformed
+
+    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
+       
+    }//GEN-LAST:event_txtPrecioActionPerformed
+
+    private void txtStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStockActionPerformed
+       
+    }//GEN-LAST:event_txtStockActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+       
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
-     * @param args the command line arguments
+     * @return 
      */
-    void traerDatosDeDB(){
-        String sql = "SELECT * FROM medicamento";
-        try{
-            con = conect.getConnection();
-            ps = con.createStatement();
-            rs = ps.executeQuery(sql);
-            Object []medicamentos = new Object[4];
-            tablaMedicamentos = (DefaultTableModel) tblMedicamentos.getModel();
-            while(rs.next()){
-                medicamentos[0] = rs.getInt("id");
-                medicamentos[1] = rs.getString("nombre");
-                medicamentos[2] = rs.getString("precio");
-                medicamentos[3] = rs.getInt("stock");
-                
-                tablaMedicamentos.addRow(medicamentos);
-            }
-            tblMedicamentos.setModel(tablaMedicamentos);
-        }catch(SQLException e){
-            
-        }
-    }
     
+    // Se crean los Getters de los botones para acceder desde el controlador
+    public JTextField getTxtNombre(){
+        return txtNombre;
+    }
+    public JTextField getTxtPrecio(){
+        return txtPrecio;
+    }
+    public JTextField getTxtStock(){
+        return txtStock;
+    }
+    public JButton getBtnGuardar(){
+        return btnGuardar;
+    }
+    public JButton getBtnNuevo(){
+        return btnNuevo;
+    }
+    public JButton getBtnEliminar(){
+        return btnEliminar;
+    }
+    public JButton getBtnEditar(){
+        return btnEditar;
+    }
+    public JTable getTablaMedicamentos(){
+        return tblMedicamentos;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelInventario;
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMenuPrincipal;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblStock;
     private javax.swing.JScrollPane scrollMedicamentos;
     private javax.swing.JTable tblMedicamentos;
-    private javax.swing.JButton tbnEliminar;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
+
 }
