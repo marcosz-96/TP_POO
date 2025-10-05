@@ -4,11 +4,11 @@ import com.mycompany.proyectfinal.modelo.Cliente;
 import com.mycompany.proyectfinal.modelo.dao.ClienteDAO;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 import com.mycompany.proyectfinal.vista.FrmCliente;
+import com.mycompany.proyectfinal.vista.FrmMenu;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ControladorCliente implements ActionListener{
@@ -26,48 +26,53 @@ public class ControladorCliente implements ActionListener{
         this.vistaClientes.getBtnGuardar().addActionListener(this);
         this.vistaClientes.getBtnEliminar().addActionListener(this);
         this.vistaClientes.getBtnEditar().addActionListener(this);
+        this.vistaClientes.getBtnCancelar().addActionListener(this);
+        this.vistaClientes.getBtnMenuPrincipal().addActionListener(this);
         
         listarClientes();
     }
     
     @Override
     public void actionPerformed(ActionEvent e){
-        if(e.getSource() == vistaClientes.getBtnNuevo()){
+        if(e.getSource() == vistaClientes.getBtnNuevo() || 
+           e.getSource() == vistaClientes.getBtnCancelar()){
             try {
                 limpiarCampos();
             } catch (ErrorAccesoDatosExceptions ex) {
-                Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorCliente.class.getName());
             }
             idClienteSeleccionado = -1;
-        }
-        if(e.getSource() == vistaClientes.getBtnGuardar()){
+        }else if(e.getSource() == vistaClientes.getBtnGuardar()){
             if(idClienteSeleccionado == -1){
                 try {
                     guardarClientes();
                 } catch (ErrorAccesoDatosExceptions ex) {
-                    Logger.getLogger(ControladorMedicamento.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ControladorCliente.class.getName());
                 }
             }else{
                 try {
                     actualizarCliente();
                 } catch (ErrorAccesoDatosExceptions ex) {
-                    Logger.getLogger(ControladorMedicamento.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ControladorCliente.class.getName());
                 }
             }
-        }
-        if(e.getSource() == vistaClientes.getBtnEliminar()){
+        }else if(e.getSource() == vistaClientes.getBtnEliminar()){
             try {
                 eliminarCliente();
             } catch (ErrorAccesoDatosExceptions ex) {
-                Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorCliente.class.getName());
             }
-        }
-        if(e.getSource() == vistaClientes.getBtnEditar()){
+        }else if(e.getSource() == vistaClientes.getBtnEditar()){
             try {
                 cargarClienteSeleccionado();
             } catch (ErrorAccesoDatosExceptions ex) {
-                Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorCliente.class.getName());
             }
+        }else if(e.getSource() == vistaClientes.getBtnMenuPrincipal()){
+            vistaClientes.setVisible(false);
+            FrmMenu verMenu = new FrmMenu();
+            verMenu.setVisible(true);
+            //verMenu.dispose();
         }
     }
     
@@ -90,7 +95,7 @@ public class ControladorCliente implements ActionListener{
     }
     
     // Metodo que limpia los campos de entrada para agregar nuevos datos
-    private void limpiarCampos() throws ErrorAccesoDatosExceptions{
+    private void limpiarCampos()throws ErrorAccesoDatosExceptions{
         vistaClientes.getTxtNombre().setText("");
         vistaClientes.getTxtApellido().setText("");
         vistaClientes.getTxtDni().setText("");
@@ -99,49 +104,12 @@ public class ControladorCliente implements ActionListener{
         vistaClientes.getTxtNombre().requestFocus();
     }
     
-    // Metodo para guardar datos de clientes
-    private void guardarClientes() throws ErrorAccesoDatosExceptions{
-        
-        String nombre = vistaClientes.getTxtNombre().getText();
-        String apellido = vistaClientes.getTxtApellido().getText();
-        String dniSrt = vistaClientes.getTxtDni().getText();
-        String direccion = vistaClientes.getTxtDireccion().getText();
-        String telefonoSrt = vistaClientes.getTxtTelefono().getText();
-        
-        // Verificamos que los campos no esten vacios
-        while(nombre.trim().isEmpty() || apellido.trim().isEmpty() || dniSrt.trim().isEmpty() ||
-                direccion.trim().isEmpty() || telefonoSrt.trim().isEmpty()){
-            JOptionPane.showMessageDialog(vistaClientes, "¡ATENCION! Complete todos los campos");
-            return;
-        }
-        vistaClientes.getTxtNombre().requestFocus();
-        
-        // Una vez verificado se realiza la operacion de guardar
-        try{
-            int dni = Integer.parseInt(dniSrt);
-            long telefono = Long.parseLong(telefonoSrt);
-            
-            Cliente clientes = new Cliente();
-            clientes.setNombre(nombre);
-            clientes.setApellido(apellido);
-            clientes.setDni(dni);
-            clientes.setDireccion(direccion);
-            clientes.setTelefono(telefono);
-            
-            clienteDAO.insert(clientes);
-            JOptionPane.showMessageDialog(vistaClientes, "[ATENCION] Datos de clientes guardados.");
-            listarClientes();
-            limpiarCampos();
-            
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(vistaClientes, "[ATENCION] Los campos DNI y TELEFONO deben ser numericos.");
-        }   
-    }
+    
     
     // Metodo que elimina datos por ID
     private void eliminarCliente() throws ErrorAccesoDatosExceptions{
         int fila = vistaClientes.getTablaClientes().getSelectedRow();
-        while(fila == -1){
+        if(fila == -1){
             JOptionPane.showMessageDialog(vistaClientes, "Seleccione los datos que desea eliminar.");
             return;
         }
@@ -161,7 +129,7 @@ public class ControladorCliente implements ActionListener{
     // Metodo que selecciona los datos de la tabla que se van a modificar
     private void cargarClienteSeleccionado() throws ErrorAccesoDatosExceptions{
         int fila = vistaClientes.getTablaClientes().getSelectedRow();
-        while(fila == -1){
+        if(fila == -1){
             JOptionPane.showMessageDialog(vistaClientes, "Seleccione la fila que desea modificar.");
             return;
         }
@@ -183,41 +151,89 @@ public class ControladorCliente implements ActionListener{
         idClienteSeleccionado = id;
     }
     
-    private void actualizarCliente()throws ErrorAccesoDatosExceptions{
-        String nombre = vistaClientes.getTxtNombre().getText();
-        String apellido = vistaClientes.getTxtApellido().getText();
-        String dniSrt = vistaClientes.getTxtDni().getText();
-        String direccion = vistaClientes.getTxtDireccion().getText();
-        String telefonoSrt = vistaClientes.getTxtTelefono().getText();
-        
-        // Verificamos que los campos no esten vacios
-        while(nombre.trim().isEmpty() || apellido.trim().isEmpty() || dniSrt.trim().isEmpty() ||
-                direccion.trim().isEmpty() || telefonoSrt.trim().isEmpty()){
-            JOptionPane.showMessageDialog(vistaClientes, "¡ATENCION! Complete todos los campos");
+    private String validarCampos() {
+        String nombre = vistaClientes.getTxtNombre().getText().trim();
+        String apellido = vistaClientes.getTxtApellido().getText().trim();
+        String dniStr = vistaClientes.getTxtDni().getText().trim();
+        String direccion = vistaClientes.getTxtDireccion().getText().trim();
+        String telefonoStr = vistaClientes.getTxtTelefono().getText().trim();
+
+        if(nombre.isEmpty()) return "El campo Nombre es obligatorio.";
+        if(apellido.isEmpty()) return "El campo Apellido es obligatorio.";
+        if(dniStr.isEmpty()) return "El campo DNI es obligatorio.";
+        if(direccion.isEmpty()) return "El campo Dirección es obligatorio.";
+        if(telefonoStr.isEmpty()) return "El campo Teléfono es obligatorio.";
+
+        try {
+            int dni = Integer.parseInt(dniStr);
+            if(dni <= 0) return "El DNI debe ser un número positivo.";
+        } catch(NumberFormatException e) {
+            return "El DNI debe ser un número válido.";
+        }
+
+        try {
+            long telefono = Long.parseLong(telefonoStr);
+            if(telefono <= 0) return "El Teléfono debe ser un número positivo.";
+        } catch(NumberFormatException e) {
+            return "El Teléfono debe ser un número válido.";
+        }
+
+        return null; // todo bien
+    }
+
+    private void guardarClientes() throws ErrorAccesoDatosExceptions {
+        String error = validarCampos();
+        if(error != null) {
+            JOptionPane.showMessageDialog(vistaClientes, error, "Error de validación", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        vistaClientes.getTxtNombre().requestFocus();
-        
-        // Una vez verificado se realiza la operacion de guardar
-        try{
-            int dni = Integer.parseInt(dniSrt);
-            long telefono = Long.parseLong(telefonoSrt);
-            
-            Cliente clientes = new Cliente();
-            clientes.setId(idClienteSeleccionado);
-            clientes.setNombre(nombre);
-            clientes.setApellido(apellido);
-            clientes.setDni(dni);
-            clientes.setDireccion(direccion);
-            clientes.setTelefono(telefono);
-            
-            clienteDAO.update(clientes);
-            JOptionPane.showMessageDialog(vistaClientes, "[ATENCION] Los datos del cliente han sido actualizados.");
-            listarClientes();
-            limpiarCampos();
-            idClienteSeleccionado = -1;
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(vistaClientes, "[ATENCION] Los campos DNI y TELEFONO deben ser numericos.");
-        }  
+
+        // Si pasa validación, extraemos valores
+        String nombre = vistaClientes.getTxtNombre().getText().trim();
+        String apellido = vistaClientes.getTxtApellido().getText().trim();
+        int dni = Integer.parseInt(vistaClientes.getTxtDni().getText().trim());
+        String direccion = vistaClientes.getTxtDireccion().getText().trim();
+        long telefono = Long.parseLong(vistaClientes.getTxtTelefono().getText().trim());
+
+        Cliente cliente = new Cliente();
+        cliente.setNombre(nombre);
+        cliente.setApellido(apellido);
+        cliente.setDni(dni);
+        cliente.setDireccion(direccion);
+        cliente.setTelefono(telefono);
+
+        clienteDAO.insert(cliente);
+        JOptionPane.showMessageDialog(vistaClientes, "Datos de cliente guardados correctamente.");
+        listarClientes();
+        limpiarCampos();
     }
+
+    private void actualizarCliente() throws ErrorAccesoDatosExceptions {
+        String error = validarCampos();
+        if(error != null) {
+            JOptionPane.showMessageDialog(vistaClientes, error, "Error de validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String nombre = vistaClientes.getTxtNombre().getText().trim();
+        String apellido = vistaClientes.getTxtApellido().getText().trim();
+        int dni = Integer.parseInt(vistaClientes.getTxtDni().getText().trim());
+        String direccion = vistaClientes.getTxtDireccion().getText().trim();
+        long telefono = Long.parseLong(vistaClientes.getTxtTelefono().getText().trim());
+
+        Cliente cliente = new Cliente();
+        cliente.setId(idClienteSeleccionado);
+        cliente.setNombre(nombre);
+        cliente.setApellido(apellido);
+        cliente.setDni(dni);
+        cliente.setDireccion(direccion);
+        cliente.setTelefono(telefono);
+
+        clienteDAO.update(cliente);
+        JOptionPane.showMessageDialog(vistaClientes, "Datos del cliente actualizados correctamente.");
+        listarClientes();
+        limpiarCampos();
+        idClienteSeleccionado = -1;
+    }
+
 }

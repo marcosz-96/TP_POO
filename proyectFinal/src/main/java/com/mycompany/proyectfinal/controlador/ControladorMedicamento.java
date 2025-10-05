@@ -4,10 +4,10 @@ import com.mycompany.proyectfinal.modelo.Medicamento;
 import com.mycompany.proyectfinal.modelo.dao.MedicamentoDAO;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 import com.mycompany.proyectfinal.vista.FrmMedicamento;
+import com.mycompany.proyectfinal.vista.FrmMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +28,8 @@ public class ControladorMedicamento implements ActionListener{
         this.vistaMedicamentos.getBtnEliminar().addActionListener(this);
         this.vistaMedicamentos.getBtnGuardar().addActionListener(this);
         this.vistaMedicamentos.getBtnNuevo().addActionListener(this);
+        this.vistaMedicamentos.getBtnCancelar().addActionListener(this);
+        this.vistaMedicamentos.getBtnMenuPrincipal().addActionListener(this);
         
         listarMedicamentos();
     }
@@ -39,21 +41,22 @@ public class ControladorMedicamento implements ActionListener{
                 try {
                     guardarMedicamento();
                 } catch (ErrorAccesoDatosExceptions ex) {
-                    Logger.getLogger(ControladorMedicamento.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ControladorMedicamento.class.getName());
                 }
             }else{
                 try {
                     actualizarMedicamento();
                 } catch (ErrorAccesoDatosExceptions ex) {
-                    Logger.getLogger(ControladorMedicamento.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ControladorMedicamento.class.getName());
                 }
             }
         }
-        if(e.getSource() == vistaMedicamentos.getBtnNuevo()){
+        if(e.getSource() == vistaMedicamentos.getBtnNuevo() || 
+           e.getSource() == vistaMedicamentos.getBtnCancelar()){
             try {
                 limpiarCampos();
             } catch (ErrorAccesoDatosExceptions ex) {
-                Logger.getLogger(ControladorMedicamento.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorMedicamento.class.getName());
             }
             idMedicamentoSeleccionado = -1;
         }
@@ -61,15 +64,20 @@ public class ControladorMedicamento implements ActionListener{
             try {
                 cargarMedicamentoSeleccionado();
             } catch (ErrorAccesoDatosExceptions ex) {
-                Logger.getLogger(ControladorMedicamento.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorMedicamento.class.getName());
             }
         }
         if(e.getSource() == vistaMedicamentos.getBtnEliminar()){
             try {
                 eliminarMedicamento();
             } catch (ErrorAccesoDatosExceptions ex) {
-                Logger.getLogger(ControladorMedicamento.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorMedicamento.class.getName());
             }
+        }
+        if(e.getSource() == vistaMedicamentos.getBtnMenuPrincipal()){
+            vistaMedicamentos.setVisible(false);
+            FrmMenu verMenu = new FrmMenu();
+            verMenu.setVisible(true);
         }
     }
     
@@ -104,7 +112,7 @@ public class ControladorMedicamento implements ActionListener{
         String stockStr = vistaMedicamentos.getTxtStock().getText();
         
         // Verificamos que no hayan espacios en blanco y campos vacios.
-        while(nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty()){
+        if(nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Complete todos los campos.");
             return;
         }
@@ -186,7 +194,7 @@ public class ControladorMedicamento implements ActionListener{
     // Metodo que elimina datos por ID
     private void eliminarMedicamento() throws ErrorAccesoDatosExceptions{
         int fila = vistaMedicamentos.getTablaMedicamentos().getSelectedRow();
-        while(fila == -1){
+        if(fila == -1){
             JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Seleccione el dato que desea eliminar.");
             return;
         }

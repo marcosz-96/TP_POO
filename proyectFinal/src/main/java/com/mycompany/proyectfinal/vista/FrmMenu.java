@@ -179,32 +179,36 @@ public class FrmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        FrmMedicamento frmMedicamento = new FrmMedicamento();
-        frmMedicamento.setVisible(true);
-        this.dispose();
+        /*FrmMedicamento frmMedicamento = new FrmMedicamento();
+        frmMedicamento.setVisible(true);*/
+        //this.setVisible(false);
+        //this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        FrmCliente frmCliente = new FrmCliente();
-        frmCliente.setVisible(true);
-        this.dispose();
+        /*FrmCliente frmCliente = new FrmCliente();
+        frmCliente.setVisible(true);*/
+        //this.setVisible(false);
+        //this.dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
-        FrmVentas frmVentas = new FrmVentas();
-        frmVentas.setVisible(true);
-        this.dispose();
+        /*FrmVentas frmVentas = new FrmVentas();
+        frmVentas.setVisible(true);*/
+        //this.setVisible(false);
+        //this.dispose();
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void btnInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformesActionPerformed
-        FrmReportes frmReportes = new FrmReportes();
-        frmReportes.setVisible(true);
-        this.dispose();
+        /*FrmReportes frmReportes = new FrmReportes();
+        frmReportes.setVisible(true);*/
+        //this.setVisible(false);
+        //this.dispose();
     }//GEN-LAST:event_btnInformesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
     
     // Getters para acceder desde el Controlador
@@ -218,11 +222,8 @@ public class FrmMenu extends javax.swing.JFrame {
     public javax.swing.JButton getBtnVentas(){
         return btnVentas;
     }
-    public javax.swing.JButton getBtnReportes(){
+    public javax.swing.JButton getBtnInformes(){
         return btnInformes;
-    }
-    public javax.swing.JButton getBtnSalir(){
-        return btnSalir;
     }
    
 

@@ -1,4 +1,4 @@
-/*package com.mycompany.proyectfinal.controlador;
+package com.mycompany.proyectfinal.controlador;
 
 import com.mycompany.proyectfinal.modelo.DetalleVenta;
 import com.mycompany.proyectfinal.modelo.dao.ClienteDAO;
@@ -36,4 +36,4 @@ public class ControladorVenta implements ActionListener{
     }
     
     
-}*/
+}
