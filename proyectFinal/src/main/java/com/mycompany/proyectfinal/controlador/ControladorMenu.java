@@ -15,48 +15,49 @@ import java.util.logging.Logger;
 public class ControladorMenu implements ActionListener{
     private FrmMenu vista;
     
-    public ControladorMenu(FrmMenu vista){
+    public ControladorMenu(FrmMenu vista)throws ErrorAccesoDatosExceptions{
         this.vista = vista;
         
         this.vista.getBtnCliente().addActionListener(this);
         this.vista.getBtnInventario().addActionListener(this);
         this.vista.getBtnVentas().addActionListener(this);
         this.vista.getBtnInformes().addActionListener(this);
-        
+     
+        this.vista.setVisible(true);
     }
 
     public ControladorMenu() {}
     
     @Override
     public void actionPerformed(ActionEvent e){
+        this.vista.setVisible(false);
+        
         if(e.getSource() == vista.getBtnCliente()){
-            vista.setVisible(false);
+            
             FrmCliente vtCliente = new FrmCliente();
             ClienteDAO clienteDAO = new ClienteDAO();
             try {
                 ControladorCliente ctCliente = new ControladorCliente(vtCliente, clienteDAO);
+                vtCliente.setVisible(true);
             } catch (ErrorAccesoDatosExceptions ex) {
                 Logger.getLogger(ControladorMenu.class.getName());
             }
-            vtCliente.setVisible(true);
-        }
-        if(e.getSource() == vista.getBtnInventario()){
-            vista.setVisible(false);
+        }else if(e.getSource() == vista.getBtnInventario()){
+            //vista.setVisible(false);
             FrmMedicamento vtMedicamento = new FrmMedicamento();
             MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
             try {
                 ControladorMedicamento ctMedicamento = new ControladorMedicamento(vtMedicamento, medicamentoDAO);
+                vtMedicamento.setVisible(true);
             } catch (ErrorAccesoDatosExceptions ex) {
                 Logger.getLogger(ControladorMenu.class.getName());
             }
-            vtMedicamento.setVisible(true);
-        }
-        if(e.getSource() == vista.getBtnVentas()){
+            
+        }else if(e.getSource() == vista.getBtnVentas()){
             //vista.setVisible(false);
             FrmVentas vtVentas = new FrmVentas();
             vtVentas.setVisible(true);
-        }
-        if(e.getSource() == vista.getBtnInformes()){
+        }else if(e.getSource() == vista.getBtnInformes()){
             //vista.setVisible(false);
             FrmReportes vtInformes = new FrmReportes();
             vtInformes.setVisible(true);

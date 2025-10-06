@@ -279,8 +279,8 @@ public class FrmCliente extends javax.swing.JFrame {
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
         
         /*FrmMenu frmMenu = new FrmMenu();
-        frmMenu.setVisible(true)*/
-        //his.setVisible(false);
+        frmMenu.setVisible(true);
+        this.dispose();*/
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed

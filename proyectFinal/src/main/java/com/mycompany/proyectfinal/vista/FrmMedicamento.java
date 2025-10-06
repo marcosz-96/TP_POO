@@ -249,7 +249,7 @@ public class FrmMedicamento extends javax.swing.JFrame {
         /*this.setVisible(false);
         FrmMenu frmMenu = new FrmMenu();
         frmMenu.setVisible(true);*/
-        //this.setVisible(false);
+        //this.dispose();
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed

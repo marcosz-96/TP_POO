@@ -42,7 +42,6 @@ public class FrmVentas extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbDetalles = new javax.swing.JTable();
-        lblTotal = new javax.swing.JLabel();
         btnGuardarVenta = new javax.swing.JButton();
         btnCancelarVenta = new javax.swing.JButton();
         btnVolverAlMenu = new javax.swing.JButton();
@@ -133,9 +132,6 @@ public class FrmVentas extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbDetalles);
 
-        lblTotal.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        lblTotal.setText("Total: $0.0");
-
         btnGuardarVenta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnGuardarVenta.setText("Guardar");
         btnGuardarVenta.addActionListener(new java.awt.event.ActionListener() {
@@ -181,9 +177,7 @@ public class FrmVentas extends javax.swing.JFrame {
                 .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnVolverAlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVolverAlMenu, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PanelVentasLayout.createSequentialGroup()
                         .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblPrecio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -233,9 +227,7 @@ public class FrmVentas extends javax.swing.JFrame {
                         .addComponent(btnGuardarVenta)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTotal)
-                .addGap(16, 16, 16)
+                .addGap(45, 45, 45)
                 .addComponent(btnVolverAlMenu)
                 .addContainerGap())
         );
@@ -324,7 +316,6 @@ public class FrmVentas extends javax.swing.JFrame {
     private javax.swing.JLabel lblMedicamento;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tbDetalles;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtPrecio;

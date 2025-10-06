@@ -30,7 +30,8 @@ public class ControladorMedicamento implements ActionListener{
         this.vistaMedicamentos.getBtnNuevo().addActionListener(this);
         this.vistaMedicamentos.getBtnCancelar().addActionListener(this);
         this.vistaMedicamentos.getBtnMenuPrincipal().addActionListener(this);
-        
+       
+        this.vistaMedicamentos.setVisible(true);
         listarMedicamentos();
     }
     
@@ -73,9 +74,8 @@ public class ControladorMedicamento implements ActionListener{
             } catch (ErrorAccesoDatosExceptions ex) {
                 Logger.getLogger(ControladorMedicamento.class.getName());
             }
-        }
-        if(e.getSource() == vistaMedicamentos.getBtnMenuPrincipal()){
-            vistaMedicamentos.setVisible(false);
+        }else if(e.getSource() == vistaMedicamentos.getBtnMenuPrincipal()){
+            this.vistaMedicamentos.setVisible(false);
             FrmMenu verMenu = new FrmMenu();
             verMenu.setVisible(true);
         }

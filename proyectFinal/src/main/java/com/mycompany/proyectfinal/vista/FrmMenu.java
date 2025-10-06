@@ -1,5 +1,7 @@
 package com.mycompany.proyectfinal.vista;
 
+import com.mycompany.proyectfinal.controlador.ControladorCliente;
+import com.mycompany.proyectfinal.modelo.dao.ClienteDAO;
 import javax.swing.JFrame;
 
 public class FrmMenu extends javax.swing.JFrame {
@@ -180,16 +182,18 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
         /*FrmMedicamento frmMedicamento = new FrmMedicamento();
-        frmMedicamento.setVisible(true);*/
-        //this.setVisible(false);
+        frmMedicamento.setVisible(true);
+        this.setVisible(false);*/
         //this.dispose();
+        ClienteDAO ctDAO = new ClienteDAO();
+        ControladorCliente ctCliente = new ControladorCliente(ctDAO);
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         /*FrmCliente frmCliente = new FrmCliente();
         frmCliente.setVisible(true);*/
         //this.setVisible(false);
-        //this.dispose();
+       // this.dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed

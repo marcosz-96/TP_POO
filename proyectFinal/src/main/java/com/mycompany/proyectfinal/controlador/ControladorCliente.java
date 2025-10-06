@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 
 public class ControladorCliente implements ActionListener{
     
-    private final FrmCliente vistaClientes;
-    private final ClienteDAO clienteDAO;
+    private FrmCliente vistaClientes;
+    private ClienteDAO clienteDAO;
     private DefaultTableModel tablaClientes;
     private int idClienteSeleccionado = -1;
     
@@ -29,8 +29,11 @@ public class ControladorCliente implements ActionListener{
         this.vistaClientes.getBtnCancelar().addActionListener(this);
         this.vistaClientes.getBtnMenuPrincipal().addActionListener(this);
         
+        this.vistaClientes.setVisible(true);
         listarClientes();
     }
+    
+    public ControladorCliente(ClienteDAO ctDAO){}
     
     @Override
     public void actionPerformed(ActionEvent e){
@@ -69,7 +72,7 @@ public class ControladorCliente implements ActionListener{
                 Logger.getLogger(ControladorCliente.class.getName());
             }
         }else if(e.getSource() == vistaClientes.getBtnMenuPrincipal()){
-            vistaClientes.setVisible(false);
+            this.vistaClientes.setVisible(false);
             FrmMenu verMenu = new FrmMenu();
             verMenu.setVisible(true);
             //verMenu.dispose();

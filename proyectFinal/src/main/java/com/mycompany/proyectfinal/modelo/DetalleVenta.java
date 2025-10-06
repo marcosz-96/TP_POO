@@ -1,23 +1,27 @@
 package com.mycompany.proyectfinal.modelo;
 
+import java.math.BigDecimal;
+
 public class DetalleVenta {
     // Se crean los atributos de la entidad
     private int id;
     private int ventaId;
     private int medicamentoId;
     private int cantidad;
-    private double subtotal;
+    private BigDecimal precioUnitario;
+    private BigDecimal precioFinal;
     
     // Se crea el constructor vacío
     public DetalleVenta(){}
     
     // Se crea el constructor con atributos
-    public DetalleVenta(int id, int ventaId, int medicamentoId,int cantidad, double subtotal){
+    public DetalleVenta(int id, int ventaId, int medicamentoId,int cantidad, BigDecimal precioUnitario, BigDecimal precioFinal){
         this.id = id;
         this.ventaId = ventaId;
         this.medicamentoId = medicamentoId;
         this.cantidad = cantidad;
-        this.subtotal = subtotal;
+        this.precioUnitario = precioUnitario;
+        this.precioFinal = precioFinal;
     }
     
     // Se crean los Getters y Setters
@@ -53,11 +57,19 @@ public class DetalleVenta {
         this.cantidad = cantidad;
     }
     
-    public double getSubtotal(){
-        return subtotal;
+    public BigDecimal getPrecioUnitario(){
+        return precioUnitario;
     }
     
-    public void setSubtotal(double subtotal){
-        this.subtotal = subtotal;
+    public void setPrecioUnitario(BigDecimal precioUnitario){
+        this.precioUnitario = precioUnitario;
+    }
+    
+    public BigDecimal getPrecioFinal(){
+        return precioFinal;
+    }
+    
+    public void setPrecioFinal(BigDecimal precioFinal){
+        this.precioFinal = precioFinal;
     }
 }
