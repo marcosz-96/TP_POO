@@ -185,14 +185,15 @@ public class FrmMenu extends javax.swing.JFrame {
         frmMedicamento.setVisible(true);
         this.setVisible(false);*/
         //this.dispose();
-        ClienteDAO ctDAO = new ClienteDAO();
-        ControladorCliente ctCliente = new ControladorCliente(ctDAO);
+        
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         /*FrmCliente frmCliente = new FrmCliente();
         frmCliente.setVisible(true);*/
         //this.setVisible(false);
+        /*ClienteDAO ctDAO = new ClienteDAO();
+        ControladorCliente ctCliente = new ControladorCliente(ctDAO);*/
        // this.dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
 

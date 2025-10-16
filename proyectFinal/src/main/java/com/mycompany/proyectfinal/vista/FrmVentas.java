@@ -36,8 +36,6 @@ public class FrmVentas extends javax.swing.JFrame {
         lblCliente = new javax.swing.JLabel();
         lblMedicamento = new javax.swing.JLabel();
         lblCantidad = new javax.swing.JLabel();
-        cbCliente = new javax.swing.JComboBox<>();
-        cbMedicamento = new javax.swing.JComboBox<>();
         txtCantidad = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -47,7 +45,8 @@ public class FrmVentas extends javax.swing.JFrame {
         btnVolverAlMenu = new javax.swing.JButton();
         lblPrecio = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
-        btnEditar = new javax.swing.JButton();
+        txtMedicamento = new javax.swing.JTextField();
+        cmbClientes = new javax.swing.JComboBox<>();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -83,20 +82,6 @@ public class FrmVentas extends javax.swing.JFrame {
 
         lblCantidad.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         lblCantidad.setText("Cantidad:");
-
-        cbCliente.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        cbCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbClienteActionPerformed(evt);
-            }
-        });
-
-        cbMedicamento.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        cbMedicamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMedicamentoActionPerformed(evt);
-            }
-        });
 
         txtCantidad.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
@@ -165,8 +150,7 @@ public class FrmVentas extends javax.swing.JFrame {
             }
         });
 
-        btnEditar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnEditar.setText("Editar");
+        cmbClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout PanelVentasLayout = new javax.swing.GroupLayout(PanelVentas);
         PanelVentas.setLayout(PanelVentasLayout);
@@ -186,16 +170,16 @@ public class FrmVentas extends javax.swing.JFrame {
                             .addComponent(lblCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbCliente, 0, 195, Short.MAX_VALUE)
-                            .addComponent(cbMedicamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCantidad)
-                            .addComponent(txtPrecio))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCancelarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addComponent(btnGuardarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(txtPrecio)
+                            .addComponent(txtMedicamento)
+                            .addComponent(cmbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 142, Short.MAX_VALUE)
+                        .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnCancelarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                .addComponent(btnGuardarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         PanelVentasLayout.setVerticalGroup(
@@ -203,31 +187,29 @@ public class FrmVentas extends javax.swing.JFrame {
             .addGroup(PanelVentasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
-                .addGap(36, 36, 36)
+                .addGap(37, 37, 37)
                 .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCliente)
-                    .addComponent(btnAgregar))
+                    .addComponent(cmbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMedicamento)
-                    .addComponent(cbMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelarVenta))
+                    .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregar))
                 .addGap(18, 18, 18)
-                .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCantidad)
-                        .addComponent(btnEditar)))
-                .addGap(22, 22, 22)
+                .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelarVenta)
+                    .addComponent(lblCantidad))
+                .addGap(20, 20, 20)
                 .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PanelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblPrecio)
                         .addComponent(btnGuardarVenta)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
                 .addComponent(btnVolverAlMenu)
                 .addContainerGap())
         );
@@ -247,14 +229,6 @@ public class FrmVentas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClienteActionPerformed
-        
-    }//GEN-LAST:event_cbClienteActionPerformed
-
-    private void cbMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMedicamentoActionPerformed
-      
-    }//GEN-LAST:event_cbMedicamentoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         
@@ -301,11 +275,9 @@ public class FrmVentas extends javax.swing.JFrame {
     private javax.swing.JPanel PanelVentas;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelarVenta;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardarVenta;
     private javax.swing.JButton btnVolverAlMenu;
-    private javax.swing.JComboBox<String> cbCliente;
-    private javax.swing.JComboBox<String> cbMedicamento;
+    private javax.swing.JComboBox<String> cmbClientes;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -318,6 +290,7 @@ public class FrmVentas extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tbDetalles;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtMedicamento;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 

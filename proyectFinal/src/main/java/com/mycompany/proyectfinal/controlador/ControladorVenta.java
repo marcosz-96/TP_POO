@@ -18,21 +18,24 @@ public class ControladorVenta implements ActionListener{
     private DetalleVentaDAO detalleDAO;
     private ClienteDAO clienteDAO;
     private MedicamentoDAO medicamentoDAO;
+    private ControladorMenu ctMenu;
     
     private List<DetalleVenta> detallesVentas = new ArrayList();
     private double total = 0.0;
     
-    public ControladorVenta(FrmVentas vistaVentas, VentaDAO ventaDAO, DetalleVentaDAO detalleDAO, ClienteDAO clienteDAO, MedicamentoDAO medicamentoDAO){
+    public ControladorVenta(FrmVentas vistaVentas, VentaDAO ventaDAO, DetalleVentaDAO detalleDAO, ClienteDAO clienteDAO, MedicamentoDAO medicamentoDAO, ControladorMenu ctMenu){
         this.vistaVentas = vistaVentas;
         this.ventaDAO = ventaDAO;
         this.detalleDAO = detalleDAO;
         this.clienteDAO = clienteDAO;
         this.medicamentoDAO = medicamentoDAO;
+        this.ctMenu = ctMenu;
         
         this.vistaVentas.btnAgregar.addActionListener(this);
         this.vistaVentas.btnFinalizarVenta.addActionListener(this);
         this.vistaVentas.btn
         
+        this.setVisible(true);
     }
     
     

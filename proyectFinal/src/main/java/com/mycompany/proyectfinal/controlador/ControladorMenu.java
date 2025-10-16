@@ -6,14 +6,16 @@ import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 import com.mycompany.proyectfinal.vista.FrmCliente;
 import com.mycompany.proyectfinal.vista.FrmMedicamento;
 import com.mycompany.proyectfinal.vista.FrmMenu;
-import com.mycompany.proyectfinal.vista.FrmReportes;
-import com.mycompany.proyectfinal.vista.FrmVentas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ControladorMenu implements ActionListener{
     private FrmMenu vista;
+    private JFrame vistaActual;
     
     public ControladorMenu(FrmMenu vista)throws ErrorAccesoDatosExceptions{
         this.vista = vista;
@@ -30,37 +32,98 @@ public class ControladorMenu implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e){
-        this.vista.setVisible(false);
-        
         if(e.getSource() == vista.getBtnCliente()){
+            ventanaCliente();
+        } else if(e.getSource() == vista.getBtnInventario()){
+            ventanaInventario();
+        }
+    }
+    
+    private void ventanaCliente(){
+        try{
+            vista.setVisible(false); 
             
             FrmCliente vtCliente = new FrmCliente();
             ClienteDAO clienteDAO = new ClienteDAO();
-            try {
-                ControladorCliente ctCliente = new ControladorCliente(vtCliente, clienteDAO);
-                vtCliente.setVisible(true);
-            } catch (ErrorAccesoDatosExceptions ex) {
-                Logger.getLogger(ControladorMenu.class.getName());
-            }
-        }else if(e.getSource() == vista.getBtnInventario()){
-            //vista.setVisible(false);
+            ControladorCliente ctCliente = new ControladorCliente(vtCliente, clienteDAO, this);
+            
+            vistaActual = vtCliente;
+            vtCliente.setVisible(true);
+        } catch(ErrorAccesoDatosExceptions ex){
+            Logger.getLogger(ControladorMenu.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(vista, "¡ERROR! Al intentar abrir ventana cliente." + ex.getMessage(),
+                "ERROR", 
+                JOptionPane.ERROR_MESSAGE);
+            vista.setVisible(true);
+        }
+    }
+    
+    private void ventanaInventario(){
+        try{
+            vista.setVisible(false);
+        
             FrmMedicamento vtMedicamento = new FrmMedicamento();
             MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
-            try {
-                ControladorMedicamento ctMedicamento = new ControladorMedicamento(vtMedicamento, medicamentoDAO);
-                vtMedicamento.setVisible(true);
-            } catch (ErrorAccesoDatosExceptions ex) {
-                Logger.getLogger(ControladorMenu.class.getName());
-            }
-            
-        }else if(e.getSource() == vista.getBtnVentas()){
-            //vista.setVisible(false);
-            FrmVentas vtVentas = new FrmVentas();
-            vtVentas.setVisible(true);
-        }else if(e.getSource() == vista.getBtnInformes()){
-            //vista.setVisible(false);
-            FrmReportes vtInformes = new FrmReportes();
-            vtInformes.setVisible(true);
+            ControladorMedicamento ctMedicamento = new ControladorMedicamento(vtMedicamento, medicamentoDAO, this);
+        
+            vistaActual = vtMedicamento;
+            vtMedicamento.setVisible(true);
+        }catch(ErrorAccesoDatosExceptions ex){
+            Logger.getLogger(ControladorMenu.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(vista, "¡ERROR! Al intentar abrir ventana medicamentos." + ex.getMessage(),
+                "ERROR", 
+                JOptionPane.ERROR_MESSAGE);
+            vista.setVisible(true);  
         }
+    }
+    
+    /*private void VentanaVentas(){
+        try{
+            vista.setVisible(false);
+            
+            FrmVentas vtVentas = new FrmVentas();
+            VentaDAO ventaDAO = new VentaDAO();
+            ControladorVenta ctVentas = new ControladorVenta(vtVentas, ventaDAO, this);
+            
+            vistaActual = vtVentas;
+            vtVentas.setVisible(true);
+        } catch(ErrorAccesoDatosExceptions ex){
+            Logger.getLogger(ControladorMenu.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(vista, "¡ERROR! Al intentar abrir ventana ventas." + ex.getMessage(),
+                "ERROR", 
+                JOptionPane.ERROR_MESSAGE);
+            vista.setVisible(true);    
+        }
+    }*/
+    
+    /*private void VentanaInformes(){
+        try{
+            vista.setVisible(false);
+            
+            FrmReportes vtReportes = new FrmReportes();
+            DetalleVentaDAO dtVentaDAO = new DetalleVentaDAO();
+            ControladorReporte ctReporte = new ControladorReporte(vtReportes, dtVentaDAO, this);
+            
+            vistaActual = vtReportes;
+            vtReportes.setVisible(true);
+        } catch(ErrorAccesoDatosExceptions ex){
+            Logger.getLogger(ControladorMenu.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(vista, "¡ERROR! Al intentar abrir ventana de Informes." + ex.getMessage(),
+                "ERROR", 
+                JOptionPane.ERROR_MESSAGE);
+            vista.setVisible(true);    
+        }
+    }*/
+    
+    /**
+     * Método para volver al menú desde cualquier ventana
+     */
+    
+    public void volverAlMenu(){
+        if(vistaActual != null){
+            vistaActual.dispose();
+            vistaActual = null;
+        }
+        vista.setVisible(true);
     }
 }

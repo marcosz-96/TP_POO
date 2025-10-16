@@ -4,7 +4,6 @@ import com.mycompany.proyectfinal.modelo.Medicamento;
 import com.mycompany.proyectfinal.modelo.dao.MedicamentoDAO;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 import com.mycompany.proyectfinal.vista.FrmMedicamento;
-import com.mycompany.proyectfinal.vista.FrmMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -17,17 +16,18 @@ public class ControladorMedicamento implements ActionListener{
     
     private final FrmMedicamento vistaMedicamentos;
     private final MedicamentoDAO medicamentoDAO;
+    private final ControladorMenu ctMenu;
     private DefaultTableModel tablaMedicamentos;
     private int idMedicamentoSeleccionado = -1;
     
-    public ControladorMedicamento(FrmMedicamento vistaMedicamentos, MedicamentoDAO medicamentoDAO)throws ErrorAccesoDatosExceptions{
+    public ControladorMedicamento(FrmMedicamento vistaMedicamentos, MedicamentoDAO medicamentoDAO, ControladorMenu ctMenu)throws ErrorAccesoDatosExceptions{
         this.vistaMedicamentos = vistaMedicamentos;
         this.medicamentoDAO = medicamentoDAO;
+        this.ctMenu = ctMenu;
         
         this.vistaMedicamentos.getBtnEditar().addActionListener(this);
         this.vistaMedicamentos.getBtnEliminar().addActionListener(this);
         this.vistaMedicamentos.getBtnGuardar().addActionListener(this);
-        this.vistaMedicamentos.getBtnNuevo().addActionListener(this);
         this.vistaMedicamentos.getBtnCancelar().addActionListener(this);
         this.vistaMedicamentos.getBtnMenuPrincipal().addActionListener(this);
        
@@ -52,8 +52,7 @@ public class ControladorMedicamento implements ActionListener{
                 }
             }
         }
-        if(e.getSource() == vistaMedicamentos.getBtnNuevo() || 
-           e.getSource() == vistaMedicamentos.getBtnCancelar()){
+        if(e.getSource() == vistaMedicamentos.getBtnCancelar()){
             try {
                 limpiarCampos();
             } catch (ErrorAccesoDatosExceptions ex) {
@@ -75,9 +74,7 @@ public class ControladorMedicamento implements ActionListener{
                 Logger.getLogger(ControladorMedicamento.class.getName());
             }
         }else if(e.getSource() == vistaMedicamentos.getBtnMenuPrincipal()){
-            this.vistaMedicamentos.setVisible(false);
-            FrmMenu verMenu = new FrmMenu();
-            verMenu.setVisible(true);
+            ctMenu.volverAlMenu();
         }
     }
     
@@ -107,41 +104,35 @@ public class ControladorMedicamento implements ActionListener{
     
     // Metodo para registrar nuevos datos
     private void guardarMedicamento() throws ErrorAccesoDatosExceptions{
+        String error = validarCampos();
+        if(error != null) {
+            JOptionPane.showMessageDialog(vistaMedicamentos, error, "¡ATENCION! Error de validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         String nombre = vistaMedicamentos.getTxtNombre().getText();
         String precioStr = vistaMedicamentos.getTxtPrecio().getText();
         String stockStr = vistaMedicamentos.getTxtStock().getText();
         
-        // Verificamos que no hayan espacios en blanco y campos vacios.
-        if(nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty()){
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Complete todos los campos.");
-            return;
-        }
-        
-        // Una vez verificado, se convierten algunos tipos de datos y se registran
-        try{
-            double precio = Double.parseDouble(precioStr);
-            int stock = Integer.parseInt(stockStr);
+        double precio = Double.parseDouble(precioStr);
+        int stock = Integer.parseInt(stockStr);
             
-            Medicamento medicamentos = new Medicamento();
-            medicamentos.setNombre(nombre);
-            medicamentos.setPrecio(precio);
-            medicamentos.setStock(stock);
-            
-            medicamentoDAO.insert(medicamentos);
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Datos de medicamentos guardados.");
-            listarMedicamentos();
-            limpiarCampos();
-            
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Los datos de Precio y Stock deben ser numericos.");
-        }
+        Medicamento medicamentos = new Medicamento();
+        medicamentos.setNombre(nombre);
+        medicamentos.setPrecio(precio);
+        medicamentos.setStock(stock);
+           
+        medicamentoDAO.insert(medicamentos);
+        JOptionPane.showMessageDialog(vistaMedicamentos, "¡ATENCION! Datos de medicamentos guardados.");
+        listarMedicamentos();
+        limpiarCampos();
     }
     
     // Metodo que selecciona los datos de la tabla que se van a aditar
     private void cargarMedicamentoSeleccionado() throws ErrorAccesoDatosExceptions{
         int fila = vistaMedicamentos.getTablaMedicamentos().getSelectedRow();
         if(fila == -1){
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Seleccione una fila de la tabla.");
+            JOptionPane.showMessageDialog(vistaMedicamentos, "¡ATENCION! Seleccione una fila de la tabla.");
             return;
         }
         
@@ -160,53 +151,74 @@ public class ControladorMedicamento implements ActionListener{
     
     // Metodo que actualiza los datos seleccionados
     private void actualizarMedicamento() throws ErrorAccesoDatosExceptions{
+        String error = validarCampos();
+        if(error != null) {
+            JOptionPane.showMessageDialog(vistaMedicamentos, error, "¡ATENCION! Error de validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         String nombre = vistaMedicamentos.getTxtNombre().getText();
         String precioStr = vistaMedicamentos.getTxtPrecio().getText();
         String stockStr = vistaMedicamentos.getTxtStock().getText();
         
-        // Verificamos que no hayan espacios en blanco y campos vacios.
-        while(nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty()){
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Complete todos los campos.");
-            return;
-        }
-        
-        // Una vez verificado, se convierten algunos tipos de datos y se registran
-        try{
-            double precio = Double.parseDouble(precioStr);
-            int stock = Integer.parseInt(stockStr);
+        double precio = Double.parseDouble(precioStr);
+        int stock = Integer.parseInt(stockStr);
             
-            Medicamento medicamentos = new Medicamento();
-            medicamentos.setId(idMedicamentoSeleccionado);
-            medicamentos.setNombre(nombre);
-            medicamentos.setPrecio(precio);
-            medicamentos.setStock(stock);
+        Medicamento medicamentos = new Medicamento();
+        medicamentos.setId(idMedicamentoSeleccionado);
+        medicamentos.setNombre(nombre);
+        medicamentos.setPrecio(precio);
+        medicamentos.setStock(stock);
             
-            medicamentoDAO.update(medicamentos);
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Los datos del medicamento actualizados.");
-            listarMedicamentos();
-            limpiarCampos();
-            idMedicamentoSeleccionado = -1;
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Los datos de Precio y Stock deben ser numericos.");
-        }
+        medicamentoDAO.update(medicamentos);
+        JOptionPane.showMessageDialog(vistaMedicamentos, "¡ATENCION! Los datos del medicamento actualizados.");
+        listarMedicamentos();
+        limpiarCampos();
+        idMedicamentoSeleccionado = -1;
     }
     
     // Metodo que elimina datos por ID
     private void eliminarMedicamento() throws ErrorAccesoDatosExceptions{
         int fila = vistaMedicamentos.getTablaMedicamentos().getSelectedRow();
         if(fila == -1){
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Seleccione el dato que desea eliminar.");
+            JOptionPane.showMessageDialog(vistaMedicamentos, "¡ATENCION! Seleccione el dato que desea eliminar.");
             return;
         }
         
         int id = (int) vistaMedicamentos.getTablaMedicamentos().getValueAt(fila, 0);
         
-        int confirm = JOptionPane.showConfirmDialog(vistaMedicamentos, "[ATENCION] Seguro que desea eliminar este dato?",
+        int confirm = JOptionPane.showConfirmDialog(vistaMedicamentos, "¡ATENCION! Seguro que desea eliminar este dato?",
                 "Confirmar", JOptionPane.YES_NO_OPTION);
         if(confirm == JOptionPane.YES_OPTION){
             medicamentoDAO.delete(id);
-            JOptionPane.showMessageDialog(vistaMedicamentos, "[ATENCION] Dato eliminado con exito.");
+            JOptionPane.showMessageDialog(vistaMedicamentos, "¡ATENCION! Dato eliminado con exito.");
             listarMedicamentos();
         }
+    }
+    
+    private String validarCampos() {
+        String nombre = vistaMedicamentos.getTxtNombre().getText().trim();
+        String precioStr = vistaMedicamentos.getTxtPrecio().getText().trim();
+        String stockStr = vistaMedicamentos.getTxtStock().getText().trim();
+
+        if(nombre.isEmpty()) return "¡ATENCION! El campo Nombre es obligatorio.";
+        if(precioStr.isEmpty()) return "¡ATENCION! El campo Precio es obligatorio.";
+        if(stockStr.isEmpty()) return "¡ATENCION! El campo Stock es obligatorio.";
+
+        try {
+            int precio = Integer.parseInt(precioStr);
+            if(precio <= 0) return "¡ATENCION! El Precio debe ser un número positivo.";
+        } catch(NumberFormatException e) {
+            return "¡ATENCION! El Precio debe ser un número válido.";
+        }
+
+        try {
+            long stock = Long.parseLong(stockStr);
+            if(stock <= 0) return "¡ATENCION! El stock debe ser un número positivo.";
+        } catch(NumberFormatException e) {
+            return "¡ATENCION! El stock debe ser un número válido.";
+        }
+
+        return null; // todo bien
     }
 }

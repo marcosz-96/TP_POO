@@ -15,7 +15,7 @@ public class Venta {
     private BigDecimal descuentoTotal; // Total descontado
     private BigDecimal totalFinal; // Total final
     
-    // Se crea el constructor vacío
+    // Se crea el constructor vacío requerido en los DAOs
     public Venta (){}
     
     // Se crea el constructor con los atributos

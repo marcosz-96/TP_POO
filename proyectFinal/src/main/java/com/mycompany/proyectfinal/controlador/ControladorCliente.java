@@ -4,7 +4,6 @@ import com.mycompany.proyectfinal.modelo.Cliente;
 import com.mycompany.proyectfinal.modelo.dao.ClienteDAO;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 import com.mycompany.proyectfinal.vista.FrmCliente;
-import com.mycompany.proyectfinal.vista.FrmMenu;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
@@ -15,14 +14,15 @@ public class ControladorCliente implements ActionListener{
     
     private FrmCliente vistaClientes;
     private ClienteDAO clienteDAO;
+    private ControladorMenu ctMenu;
     private DefaultTableModel tablaClientes;
     private int idClienteSeleccionado = -1;
     
-    public ControladorCliente(FrmCliente vistaClientes, ClienteDAO clienteDAO) throws ErrorAccesoDatosExceptions{
+    public ControladorCliente(FrmCliente vistaClientes, ClienteDAO clienteDAO, ControladorMenu ctMenu) throws ErrorAccesoDatosExceptions{
         this.vistaClientes = vistaClientes;
         this.clienteDAO = clienteDAO;
+        this.ctMenu = ctMenu;
         
-        this.vistaClientes.getBtnNuevo().addActionListener(this);
         this.vistaClientes.getBtnGuardar().addActionListener(this);
         this.vistaClientes.getBtnEliminar().addActionListener(this);
         this.vistaClientes.getBtnEditar().addActionListener(this);
@@ -37,8 +37,7 @@ public class ControladorCliente implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e){
-        if(e.getSource() == vistaClientes.getBtnNuevo() || 
-           e.getSource() == vistaClientes.getBtnCancelar()){
+        if(e.getSource() == vistaClientes.getBtnCancelar()){
             try {
                 limpiarCampos();
             } catch (ErrorAccesoDatosExceptions ex) {
@@ -73,9 +72,7 @@ public class ControladorCliente implements ActionListener{
             }
         }else if(e.getSource() == vistaClientes.getBtnMenuPrincipal()){
             this.vistaClientes.setVisible(false);
-            FrmMenu verMenu = new FrmMenu();
-            verMenu.setVisible(true);
-            //verMenu.dispose();
+            ctMenu.volverAlMenu();
         }
     }
     
@@ -113,18 +110,18 @@ public class ControladorCliente implements ActionListener{
     private void eliminarCliente() throws ErrorAccesoDatosExceptions{
         int fila = vistaClientes.getTablaClientes().getSelectedRow();
         if(fila == -1){
-            JOptionPane.showMessageDialog(vistaClientes, "Seleccione los datos que desea eliminar.");
+            JOptionPane.showMessageDialog(vistaClientes, "¡ATENCION! Seleccione los datos que desea eliminar.");
             return;
         }
         
         int id = (int) vistaClientes.getTablaClientes().getValueAt(fila, 0);
         
-        int confirmar = JOptionPane.showConfirmDialog(vistaClientes, "Seguro que desea eliminar este dato?",
+        int confirmar = JOptionPane.showConfirmDialog(vistaClientes, "¡ATENCION! Seguro que desea eliminar este dato?",
                 "Confirmar", JOptionPane.YES_NO_OPTION);
         
         if(confirmar == JOptionPane.YES_OPTION){
             clienteDAO.delete(id);
-            JOptionPane.showMessageDialog(vistaClientes, "Datos eliminados.");
+            JOptionPane.showMessageDialog(vistaClientes, "¡ATENCION! Datos eliminados.");
             listarClientes();
         }
     }
@@ -133,7 +130,7 @@ public class ControladorCliente implements ActionListener{
     private void cargarClienteSeleccionado() throws ErrorAccesoDatosExceptions{
         int fila = vistaClientes.getTablaClientes().getSelectedRow();
         if(fila == -1){
-            JOptionPane.showMessageDialog(vistaClientes, "Seleccione la fila que desea modificar.");
+            JOptionPane.showMessageDialog(vistaClientes, "¡ATENCION! Seleccione la fila que desea modificar.");
             return;
         }
         
@@ -161,24 +158,24 @@ public class ControladorCliente implements ActionListener{
         String direccion = vistaClientes.getTxtDireccion().getText().trim();
         String telefonoStr = vistaClientes.getTxtTelefono().getText().trim();
 
-        if(nombre.isEmpty()) return "El campo Nombre es obligatorio.";
-        if(apellido.isEmpty()) return "El campo Apellido es obligatorio.";
-        if(dniStr.isEmpty()) return "El campo DNI es obligatorio.";
-        if(direccion.isEmpty()) return "El campo Dirección es obligatorio.";
-        if(telefonoStr.isEmpty()) return "El campo Teléfono es obligatorio.";
+        if(nombre.isEmpty()) return "¡ATENCION! El campo Nombre es obligatorio.";
+        if(apellido.isEmpty()) return "¡ATENCION! El campo Apellido es obligatorio.";
+        if(dniStr.isEmpty()) return "¡ATENCION! El campo DNI es obligatorio.";
+        if(direccion.isEmpty()) return "¡ATENCION! El campo Dirección es obligatorio.";
+        if(telefonoStr.isEmpty()) return "¡ATENCION! El campo Teléfono es obligatorio.";
 
         try {
             int dni = Integer.parseInt(dniStr);
-            if(dni <= 0) return "El DNI debe ser un número positivo.";
+            if(dni <= 0) return "¡ATENCION! El DNI debe ser un número positivo.";
         } catch(NumberFormatException e) {
-            return "El DNI debe ser un número válido.";
+            return "¡ATENCION! El DNI debe ser un número válido.";
         }
 
         try {
             long telefono = Long.parseLong(telefonoStr);
-            if(telefono <= 0) return "El Teléfono debe ser un número positivo.";
+            if(telefono <= 0) return "¡ATENCION! El Teléfono debe ser un número positivo.";
         } catch(NumberFormatException e) {
-            return "El Teléfono debe ser un número válido.";
+            return "¡ATENCION! El Teléfono debe ser un número válido.";
         }
 
         return null; // todo bien
@@ -187,7 +184,7 @@ public class ControladorCliente implements ActionListener{
     private void guardarClientes() throws ErrorAccesoDatosExceptions {
         String error = validarCampos();
         if(error != null) {
-            JOptionPane.showMessageDialog(vistaClientes, error, "Error de validación", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(vistaClientes, error, "¡ATENCION! Error de validación", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -206,7 +203,7 @@ public class ControladorCliente implements ActionListener{
         cliente.setTelefono(telefono);
 
         clienteDAO.insert(cliente);
-        JOptionPane.showMessageDialog(vistaClientes, "Datos de cliente guardados correctamente.");
+        JOptionPane.showMessageDialog(vistaClientes, "¡ATENCION! Datos de cliente guardados correctamente.");
         listarClientes();
         limpiarCampos();
     }
@@ -214,7 +211,7 @@ public class ControladorCliente implements ActionListener{
     private void actualizarCliente() throws ErrorAccesoDatosExceptions {
         String error = validarCampos();
         if(error != null) {
-            JOptionPane.showMessageDialog(vistaClientes, error, "Error de validación", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(vistaClientes, error, "¡ATENCION! Error de validación", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -233,7 +230,7 @@ public class ControladorCliente implements ActionListener{
         cliente.setTelefono(telefono);
 
         clienteDAO.update(cliente);
-        JOptionPane.showMessageDialog(vistaClientes, "Datos del cliente actualizados correctamente.");
+        JOptionPane.showMessageDialog(vistaClientes, "¡ATENCION! Datos del cliente actualizados correctamente.");
         listarClientes();
         limpiarCampos();
         idClienteSeleccionado = -1;
