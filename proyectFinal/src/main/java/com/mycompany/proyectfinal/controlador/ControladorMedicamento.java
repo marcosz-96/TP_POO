@@ -6,6 +6,7 @@ import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 import com.mycompany.proyectfinal.vista.FrmMedicamento;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -114,7 +115,7 @@ public class ControladorMedicamento implements ActionListener{
         String precioStr = vistaMedicamentos.getTxtPrecio().getText();
         String stockStr = vistaMedicamentos.getTxtStock().getText();
         
-        double precio = Double.parseDouble(precioStr);
+        BigDecimal precio = new BigDecimal(precioStr);
         int stock = Integer.parseInt(stockStr);
             
         Medicamento medicamentos = new Medicamento();
@@ -161,7 +162,7 @@ public class ControladorMedicamento implements ActionListener{
         String precioStr = vistaMedicamentos.getTxtPrecio().getText();
         String stockStr = vistaMedicamentos.getTxtStock().getText();
         
-        double precio = Double.parseDouble(precioStr);
+        BigDecimal precio = new BigDecimal(precioStr);
         int stock = Integer.parseInt(stockStr);
             
         Medicamento medicamentos = new Medicamento();

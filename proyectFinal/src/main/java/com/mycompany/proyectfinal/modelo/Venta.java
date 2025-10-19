@@ -2,33 +2,44 @@ package com.mycompany.proyectfinal.modelo;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Venta {
     // Se crean los atributos de la entidad
     private int id;
     private Date fecha;
     private int clienteId;
-    private BigDecimal subtotalBruto; // Con esto se suman los subtotales brutos
-    private BigDecimal impuesto; // Agregar impuesto
+    private BigDecimal subtotalBruto; 
     private BigDecimal impuestoTotal;
-    private BigDecimal importeDescuento; // Importe del descuento
-    private BigDecimal descuentoTotal; // Total descontado
-    private BigDecimal totalFinal; // Total final
+    private BigDecimal descuentoTotal; 
+    private BigDecimal totalFinal; 
     
-    // Se crea el constructor vacío requerido en los DAOs
-    public Venta (){}
+    // Forma de declarar que las ventas pueden tener varios detalles
     
-    // Se crea el constructor con los atributos
-    public Venta(int id, Date fecha, int clienteId, BigDecimal subtotalBruto,
-                BigDecimal impuesto, BigDecimal impuestoTotal, BigDecimal importeDescuento, 
-                BigDecimal descuentoTotal, BigDecimal totalFinal){
+    private List<DetalleVenta> detalles = new ArrayList<>();
+    
+    // Constructores
+    
+    public Venta(){
+        this.subtotalBruto = BigDecimal.ZERO;
+        this.impuestoTotal = BigDecimal.ZERO;
+        this.descuentoTotal = BigDecimal.ZERO;
+        this.totalFinal = BigDecimal.ZERO;
+    }
+    
+    public Venta(int clienteId, Date fecha){
+        this();
+        this.clienteId = clienteId;
+        this.fecha = fecha;
+    }
+    
+    public Venta(int id, Date fecha, int clienteId, BigDecimal subtotalBruto, BigDecimal impuestoTotal, BigDecimal descuentoTotal, BigDecimal totalFinal){
         this.id = id;
         this.fecha = fecha;
         this.clienteId = clienteId;
         this.subtotalBruto = subtotalBruto;
-        this.impuesto = impuesto;
         this.impuestoTotal = impuestoTotal;
-        this.importeDescuento = importeDescuento;
         this.descuentoTotal = descuentoTotal;
         this.totalFinal = totalFinal;
     }
@@ -66,28 +77,12 @@ public class Venta {
         this.subtotalBruto = subtotalBruto;
     }
     
-    public BigDecimal getImpuesto(){
-        return impuesto;
-    }
-    
-    public void setImpuesto(BigDecimal impuesto){
-        this.impuesto = impuesto;
-    }
-    
     public BigDecimal getImpuestoTotal(){
         return impuestoTotal;
     }
     
     public void setImpuestoTotal(BigDecimal impuestoTotal){
         this.impuestoTotal = impuestoTotal;
-    }
-    
-    public BigDecimal getImporteDescuento(){
-        return importeDescuento;
-    }
-    
-    public void setImporteDescuento(BigDecimal importeDescuento){
-        this.importeDescuento = importeDescuento;
     }
     
     public BigDecimal getDescuentoTotal(){
@@ -104,5 +99,44 @@ public class Venta {
     
     public void setTotalFinal(BigDecimal totalFinal){
         this.totalFinal = totalFinal;
+    }
+    
+    public List<DetalleVenta> getDetalles(){
+        return detalles;
+    }
+    
+    /**
+     * Método que agregar un detalle a la lista de ventas y recalcual los totales
+     */
+    
+    public void agregarDetalle(DetalleVenta detalles){
+        if(detalles != null){
+            this.detalles.add(detalles);
+            recalcularTotales();
+        }
+    }
+    
+    /**
+     * Método para recalcular los valores de subtotal bruto, impuestos, descuentos y total final
+     * en base a los detalles cargados en la venta.
+     */
+    
+    public void recalcularTotales(){
+        BigDecimal nuevoSubtotal = BigDecimal.ZERO;
+        BigDecimal nuevoImpuesto = BigDecimal.ZERO;
+        BigDecimal nuevoDescuento = BigDecimal.ZERO;
+        BigDecimal nuevoTotal = BigDecimal.ZERO;
+        
+        for(DetalleVenta d : detalles){
+            nuevoSubtotal = nuevoSubtotal.add(d.getSubtotal());
+            nuevoImpuesto = nuevoImpuesto.add(d.getImpuesto());
+            nuevoDescuento = nuevoDescuento.add(d.getDescuento());
+            nuevoTotal = nuevoTotal.add(d.getPrecioFinal());
+        }
+        
+        this.subtotalBruto = nuevoSubtotal;
+        this.impuestoTotal = nuevoImpuesto;
+        this.descuentoTotal = nuevoDescuento;
+        this.totalFinal = nuevoTotal;
     }
 }

@@ -22,7 +22,7 @@ public class MedicamentoDAO implements IMedicamento {
             con = Conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, m.getNombre());
-            ps.setDouble(2, m.getPrecio());
+            ps.setBigDecimal(2, m.getPrecio());
             ps.setInt(3, m.getStock());
             return ps.executeUpdate() > 0;
         }catch(SQLException e){
@@ -37,7 +37,7 @@ public class MedicamentoDAO implements IMedicamento {
             con = Conexion.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, m.getNombre());
-            ps.setDouble(2, m.getPrecio());
+            ps.setBigDecimal(2, m.getPrecio());
             ps.setInt(3, m.getStock());
             return ps.executeUpdate() > 0;
         }catch(SQLException e){
@@ -70,7 +70,7 @@ public class MedicamentoDAO implements IMedicamento {
                 return new Medicamento(
                         rs.getInt("id"),
                         rs.getString("nombre"),
-                        rs.getDouble("precio"),
+                        rs.getBigDecimal("precio"),
                         rs.getInt("stock")
                 );
             }
@@ -92,7 +92,7 @@ public class MedicamentoDAO implements IMedicamento {
                 listaM.add(new Medicamento(
                         rs.getInt("id"),
                         rs.getString("nombre"),
-                        rs.getDouble("precio"),
+                        rs.getBigDecimal("precio"),
                         rs.getInt("stock")
                 ));
             }

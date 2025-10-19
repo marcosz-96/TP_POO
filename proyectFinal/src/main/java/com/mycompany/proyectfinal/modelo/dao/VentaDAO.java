@@ -19,8 +19,8 @@ public class VentaDAO implements IVenta{
     
     @Override
     public int insert(Venta v) throws ErrorAccesoDatosExceptions{
-        String sql = "INSERT INTO venta(fecha, cliente_id, subtotal, impuesto, impuesto_total"
-                + "descuento, descuento_total, total_final) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO venta(fecha, cliente_id, subtotal, impuesto total"
+                + " descuento total, total) VALUES(?,?,?,?,?,?,?,?)";
         try{
             con = Conexion.getConnection();
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -32,9 +32,7 @@ public class VentaDAO implements IVenta{
             ps.setInt(2, v.getClienteId());
             // Nos aseguramos que el valor no sea nulo
             ps.setBigDecimal(3, v.getSubtotalBruto() != null ? v.getSubtotalBruto() : BigDecimal.ZERO);
-            ps.setBigDecimal(4, v.getImpuesto() != null ? v.getImpuesto() : BigDecimal.ZERO);
             ps.setBigDecimal(5, v.getImpuestoTotal() != null ? v.getImpuestoTotal() : BigDecimal.ZERO);
-            ps.setBigDecimal(6, v.getImporteDescuento() != null ? v.getImporteDescuento() : BigDecimal.ZERO);
             ps.setBigDecimal(7, v.getDescuentoTotal() != null ? v.getDescuentoTotal() : BigDecimal.ZERO);
             ps.setBigDecimal(8, v.getTotalFinal() != null ? v.getTotalFinal() : BigDecimal.ZERO);
             
@@ -55,7 +53,7 @@ public class VentaDAO implements IVenta{
     
     @Override
     public Venta buscarVentaPorId(int id) throws ErrorAccesoDatosExceptions{
-        String sql = "SELECT * FROM venta WHERE id=?";
+        String sql = "SELECT * FROM venta WHERE id = ?";
         try{
             con = Conexion.getConnection();
             ps = con.prepareStatement(sql);
@@ -67,11 +65,9 @@ public class VentaDAO implements IVenta{
                     rs.getDate("fecha"),
                     rs.getInt("cliente_id"),
                     rs.getBigDecimal("subtotal"),
-                    rs.getBigDecimal("impuesto"),
-                    rs.getBigDecimal("impuesto_total"),
-                    rs.getBigDecimal("descuento"),
-                    rs.getBigDecimal("descuento_total"),
-                    rs.getBigDecimal("total_final")
+                    rs.getBigDecimal("impuesto total"),
+                    rs.getBigDecimal("descuento total"),
+                    rs.getBigDecimal("total")
                 );
             }
         }catch(SQLException e){
@@ -94,15 +90,13 @@ public class VentaDAO implements IVenta{
                     rs.getDate("fecha"),
                     rs.getInt("cliente_id"),
                     rs.getBigDecimal("subtotal"),
-                    rs.getBigDecimal("impuesto"),
-                    rs.getBigDecimal("impuesto_total"),
-                    rs.getBigDecimal("descuento"),
-                    rs.getBigDecimal("descuento_total"),
-                    rs.getBigDecimal("total_final")
+                    rs.getBigDecimal("impuesto total"),
+                    rs.getBigDecimal("descuento total"),
+                    rs.getBigDecimal("total")
                 ));
             }
         }catch(SQLException e){
-            throw new ErrorAccesoDatosExceptions("[ALERT]: Hubo un error al buscar lista de ventas.", e);
+            throw new ErrorAccesoDatosExceptions("¡ATENCION! Hubo un error al buscar lista de ventas.", e);
         }
         return listaV;
     }

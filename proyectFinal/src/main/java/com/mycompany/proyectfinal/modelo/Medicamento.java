@@ -1,17 +1,19 @@
 package com.mycompany.proyectfinal.modelo;
 
+import java.math.BigDecimal;
+
 public class Medicamento {
     // Creamos los atributos de la entidad
     private int id;
     private String nombre;
-    private double precio;
+    private BigDecimal precio;
     private int stock;
     
     // Creamos un constructor vacío
     public Medicamento(){}
     
     // Creamos un constructor que referencia a los atributos
-    public Medicamento(int id, String nombre, double precio, int stock){
+    public Medicamento(int id, String nombre, BigDecimal precio, int stock){
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -36,11 +38,11 @@ public class Medicamento {
         this.nombre = nombre;
     }
     
-    public double getPrecio(){
+    public BigDecimal getPrecio(){
         return precio;
     }
     
-    public void setPrecio(double precio){
+    public void setPrecio(BigDecimal precio){
         this.precio = precio;
     }
     

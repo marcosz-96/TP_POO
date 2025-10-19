@@ -7,7 +7,7 @@ import java.util.List;
 // Se crea la interfaz en la cual se implementa el CRUD para la entidad
 
 public interface IDetalleVenta {
-    public boolean insert(DetalleVenta dv) throws ErrorAccesoDatosExceptions;
+    public boolean registrarVenta(DetalleVenta dv) throws ErrorAccesoDatosExceptions;
     public List<DetalleVenta> listaDetallesDeVenta(int venta_id) throws ErrorAccesoDatosExceptions;
 }
  
