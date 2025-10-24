@@ -6,9 +6,8 @@ import java.math.RoundingMode;
 /**
  * Se utiliza BigDecimal para realizar con más presición los cálculos 
  * monetarios.
- * Se utilizan los id de la clase medicamento para no tener que 
- * trabajar con el objeto completo.
- * @author Marco
+ * Cada detalle corresponde a un medicamento vendido con su cantidad y su cálculos asociados.
+ * @author Gomez Marco, Courel Brian, Lairana Rocio
  */
 
 public class DetalleVenta {
@@ -25,6 +24,7 @@ public class DetalleVenta {
     
     /**
      * Se crea contructor que recibe todos los atributos como parámetros
+     * usado para cargar los detalles a la base de datos.
      * @param id
      * @param ventaId
      * @param medicamentoId
@@ -48,21 +48,25 @@ public class DetalleVenta {
         this.precioFinal = precioFinal;
     }
     
-    // Se crea el constructor seteando los valores para que no sean nulos.
+    // Se crea el constructor inicializando en cero los valores para que no sean nulos.
     public DetalleVenta(){
         this.precioUnitario = BigDecimal.ZERO;
+        this.subtotal = BigDecimal.ZERO;
+        this.impuesto = BigDecimal.ZERO;
+        this.descuento = BigDecimal.ZERO;
         this.precioFinal = BigDecimal.ZERO;
     }
     
     /**
      * Se crea un contructor de conveniencia que utiliza medicamentoId 
+     * 
      * @param medicamentoId
      * @param cantidad
      * @param precioUnitario
-     * @param precioFinal
      */
     
-    public DetalleVenta(int medicamentoId, int cantidad, BigDecimal precioUnitario, BigDecimal precioFinal){
+    public DetalleVenta(int medicamentoId, int cantidad, BigDecimal precioUnitario){
+        this();
         this.medicamentoId = medicamentoId;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario != null ? precioUnitario : BigDecimal.ZERO;
@@ -70,35 +74,51 @@ public class DetalleVenta {
     }
     
     /**
-     * Se crea un constructor de conveniencia que utiliza un objeto Medicamento
+     * Se crea un constructor de conveniencia que utiliza un objeto Medicamento completo.
+     *
      * @param medicamento
      * @param cantidad
      */
     
     public DetalleVenta(Medicamento medicamento, int cantidad){
+        this();
         this.medicamento = medicamento;
         if(medicamento != null){
             this.medicamentoId = medicamento.getId();
             this.precioUnitario = medicamento.getPrecio() != null ? medicamento.getPrecio() : BigDecimal.ZERO;
-        } else {
-            this.precioUnitario = BigDecimal.ZERO;
         }
+        
         this.cantidad = cantidad;
         calcularSubtotal();
     }
     
     /**
-     * Método que calcula y setea el subtotal (precioUnitario * cantidad), 
+     * Método que calcula el subtotal (precioUnitario * cantidad), 
      * redondeando a 2 decimales.
      */
     
     public void calcularSubtotal(){
         if(precioUnitario == null) precioUnitario = BigDecimal.ZERO;
-        this.precioFinal = precioUnitario.multiply(BigDecimal.valueOf(cantidad))
+        this.subtotal = precioUnitario.multiply(BigDecimal.valueOf(cantidad))
+                .setScale(2, RoundingMode.HALF_UP);
+    }
+    
+    /**
+     * Método que calcula el precio final del detalle (subtotal + impuesto - descuento).
+     * El resultado se redondea a 2 decimales.
+     */
+    
+    public void calcularPrecioFinal(){
+        BigDecimal imp = (impuesto != null) ? impuesto : BigDecimal.ZERO;
+        BigDecimal desc = (descuento != null) ? descuento : BigDecimal.ZERO;
+        BigDecimal sub = (subtotal != null) ? subtotal : BigDecimal.ZERO;
+        
+        this.precioFinal = sub.add(imp).subtract(desc)
                 .setScale(2, RoundingMode.HALF_UP);
     }
     
     // Se crean los Getters y Setters
+    
     public int getId(){
         return id;
     }
@@ -127,11 +147,20 @@ public class DetalleVenta {
         return medicamento;
     }
     
+    /**
+     * Esto establece el objeto Medicamento y sincroniza el ID y precio unitario.
+     * Recalcula automáticamente el subtotal.
+     * 
+     * @param medicamento Objeto Medicamento
+     */
+    
     public void setMedicamento(Medicamento medicamento){
         this.medicamento = medicamento;
         if(medicamento != null){
             this.medicamentoId = medicamento.getId();
-            if(medicamento.getPrecio() != null) this.precioUnitario = medicamento.getPrecio();
+            if(medicamento.getPrecio() != null){
+                this.precioUnitario = medicamento.getPrecio();
+            }
         }
         calcularSubtotal();
     }

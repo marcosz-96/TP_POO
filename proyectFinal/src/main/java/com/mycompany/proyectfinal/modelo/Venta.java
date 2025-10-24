@@ -5,8 +5,15 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que representa una venta realizada en el sistema.
+ * Contiene información de la venta y una lista de detalles (productos vendidos).
+ * Calcula automáticamente los totales cuando se agregan detalles.
+ * 
+ * @author Gomez Marco, Courel Brian, Lairana Rocio
+ */
+
 public class Venta {
-    // Se crean los atributos de la entidad
     private int id;
     private Date fecha;
     private int clienteId;
@@ -15,11 +22,13 @@ public class Venta {
     private BigDecimal descuentoTotal; 
     private BigDecimal totalFinal; 
     
-    // Forma de declarar que las ventas pueden tener varios detalles
+    // Lista de detalles de las ventas.
     
     private List<DetalleVenta> detalles = new ArrayList<>();
     
-    // Constructores
+    /**
+     * Contructor por defecto que inicializa los valores en cero
+     */
     
     public Venta(){
         this.subtotalBruto = BigDecimal.ZERO;
@@ -28,11 +37,31 @@ public class Venta {
         this.totalFinal = BigDecimal.ZERO;
     }
     
+    /**
+     * Constructor con cliente y fecha.
+     * 
+     * @param clienteId ID del cliente que realiza la compra
+     * @param fecha Fecha de la venta
+     */
+    
     public Venta(int clienteId, Date fecha){
         this();
         this.clienteId = clienteId;
         this.fecha = fecha;
     }
+    
+    /**
+     * Constructor completo.
+     * Usado principalmente para cargar ventas desde la base de datos.
+     * 
+     * @param id Identificador único de la venta
+     * @param fecha Fecha de la venta
+     * @param clienteId ID del cliente
+     * @param subtotalBruto Subtotal antes de impuestos y descuentos
+     * @param impuestoTotal Total de impuestos
+     * @param descuentoTotal Total de descuentos
+     * @param totalFinal Total final de la venta
+     */
     
     public Venta(int id, Date fecha, int clienteId, BigDecimal subtotalBruto, BigDecimal impuestoTotal, BigDecimal descuentoTotal, BigDecimal totalFinal){
         this.id = id;
@@ -45,6 +74,7 @@ public class Venta {
     }
     
     // Se arman los Getters  y Setters
+    
     public int getId(){
         return id;
     }
@@ -101,12 +131,20 @@ public class Venta {
         this.totalFinal = totalFinal;
     }
     
+    /**
+     * Método que obtiene una copia de la lista de los detalles de la venta.
+     * @return 
+     */
+    
     public List<DetalleVenta> getDetalles(){
         return detalles;
     }
     
     /**
-     * Método que agregar un detalle a la lista de ventas y recalcual los totales
+     * Método que agrega un detalle a la lista de ventas y recalcula los totales
+     * Si el detalle es null, no se agrega nada.
+     * 
+     * @param detalles
      */
     
     public void agregarDetalle(DetalleVenta detalles){
@@ -117,8 +155,9 @@ public class Venta {
     }
     
     /**
-     * Método para recalcular los valores de subtotal bruto, impuestos, descuentos y total final
-     * en base a los detalles cargados en la venta.
+     * Método que recalcula los totales de la venta sumando los valores de todos los detalles.
+     * Este método se ejecuta automáticamente al agregar detalles.
+     * Actualiza: subtotalBruto, impuestoTotal, descuentoTotal y totalFinal.
      */
     
     public void recalcularTotales(){

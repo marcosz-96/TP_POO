@@ -2,10 +2,12 @@ package com.mycompany.proyectfinal.controlador;
 
 import com.mycompany.proyectfinal.modelo.dao.ClienteDAO;
 import com.mycompany.proyectfinal.modelo.dao.MedicamentoDAO;
+import com.mycompany.proyectfinal.modelo.dao.VentaDAO;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 import com.mycompany.proyectfinal.vista.FrmCliente;
 import com.mycompany.proyectfinal.vista.FrmMedicamento;
 import com.mycompany.proyectfinal.vista.FrmMenu;
+import com.mycompany.proyectfinal.vista.FrmVenta;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -81,18 +83,18 @@ public class ControladorMenu implements ActionListener{
         try{
             vista.setVisible(false);
             
-            FrmVentas vtVentas = new FrmVentas();
+            FrmVenta vtVentas = new FrmVenta();
             VentaDAO ventaDAO = new VentaDAO();
             ControladorVenta ctVentas = new ControladorVenta(vtVentas, ventaDAO, this);
             
             vistaActual = vtVentas;
             vtVentas.setVisible(true);
-        } catch(ErrorAccesoDatosExceptions ex){
+        }catch(ErrorAccesoDatosExceptions ex){
             Logger.getLogger(ControladorMenu.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(vista, "¡ERROR! Al intentar abrir ventana ventas." + ex.getMessage(),
+            JOptionPane.showMessageDialog(vista, "¡ERROR! Al intentar abrir ventana Ventas." + ex.getMessage(),
                 "ERROR", 
                 JOptionPane.ERROR_MESSAGE);
-            vista.setVisible(true);    
+            vista.setVisible(true);  
         }
     }*/
     
