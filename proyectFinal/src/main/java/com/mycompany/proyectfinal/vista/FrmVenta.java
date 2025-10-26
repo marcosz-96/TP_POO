@@ -488,6 +488,7 @@ public class FrmVenta extends javax.swing.JFrame {
     public JComboBox<String> getCbxClientes() {return cbxCliente;}
     public JComboBox<String> getCbxMedicamento() {return cbxMedicamentos;}
     public JTextField getTxtCantidad() {return txtCantidad;}
+    public JTextField getTxtFecha() {return txtFecha;}
     public JTextField getTxtPrecio() {return txtPrecio;}
     public JTable getTblDetalles() {return tblDetalles;}
     public JTextField getTxtSubtotal() {return txtSubtotal;}

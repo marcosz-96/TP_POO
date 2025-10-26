@@ -325,6 +325,30 @@ public class ServiceVenta {
         return detalle;
     }
     
+    /**
+     * Método que obtiene y muestra un resumen de venta antes de confirmar la operacion
+     * @return 
+     */
+    
+    public String obtenerResumenVenta(Venta venta){
+        
+        if(venta == null){
+            return "Venta no disponible.";
+        }
+        
+        StringBuilder resumen = new StringBuilder();
+        resumen.append("=== RESUMEN DE VENTA ===");
+        resumen.append("------------------------");
+        resumen.append("Cantidad de Items: ").append(venta.getDetalles().size()).append("\n");
+        resumen.append("Subtotal: $").append(venta.getSubtotalBruto()).append("\n");
+        resumen.append("Impuesto: $").append(venta.getImpuestoTotal()).append("\n");
+        resumen.append("Descuento: $").append(venta.getDescuentoTotal()).append("\n");
+        resumen.append("TOTAL FINAL: $").append(venta.getTotalFinal()).append("\n");
+        resumen.append("------------------------");
+        
+        return resumen.toString();
+    }
+    
     // Se crean los Getters y Setters
     
     public BigDecimal getIvaDefault(){
