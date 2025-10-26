@@ -14,6 +14,8 @@ import com.mycompany.proyectfinal.modelo.servicio.ServiceVenta;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -44,7 +46,7 @@ public class ControladorVenta implements ActionListener{
      * @param vistaVentas 
      */
     
-    public ControladorVenta(FrmVenta vistaVentas){
+    public ControladorVenta(FrmVenta vistaVentas, ControladorMenu ctMenu) throws ErrorAccesoDatosExceptions{
         this.vistaVentas = vistaVentas;
         this.ventaDAO = new VentaDAO();
         this.detalleDAO = new DetalleVentaDAO();
@@ -67,7 +69,11 @@ public class ControladorVenta implements ActionListener{
                                             .toString()
        );
        
-       vistaVentas.getTxtDescuento().setText("0");
+       vistaVentas.getTxtDescuento().setText(ventaService.getDescuentoDefault()
+                                             .multiply(BigDecimal.valueOf(100))
+                                             .toString()
+       );
+       //vistaVentas.getTxtDescuento().setText("00.00");
        
        cargarClientes();
        cargarMedicamentos();
@@ -81,7 +87,47 @@ public class ControladorVenta implements ActionListener{
        vistaVentas.getBtnAgregarDetalle().addActionListener(this);
        vistaVentas.getBtnEliminarDetalle().addActionListener(this);
        vistaVentas.getBtnGuardarVenta().addActionListener(this);
+       vistaVentas.getBtnNuevaVenta().addActionListener(this);
        vistaVentas.getBtnCancelar().addActionListener(this);
+       vistaVentas.getBtnMenuPrincipal().addActionListener(this);
+       
+       vistaVentas.getCbxMedicamento().addItemListener(new ItemListener(){
+           @Override
+           public void itemStateChanged(ItemEvent e){
+               if(e.getStateChange() == ItemEvent.SELECTED){
+                   mostrarPrecioUnitario();
+               }
+           }
+       });
+    }
+    
+    /**
+     * Método que muestra el precio unitario cuando se selecciona un Medicamento
+     */
+    
+    private void mostrarPrecioUnitario(){
+        try{
+            String nombreMed = (String) vistaVentas.getCbxMedicamento().getSelectedItem();
+            if(nombreMed == null || nombreMed.isEmpty()){
+                vistaVentas.getTxtPrecio().setText("0.00");
+                return;
+            }
+            
+            Integer medicamentoId = medicamentosMap.get(nombreMed);
+            if(medicamentoId == null){
+                vistaVentas.getTxtPrecio().setText("0.00");
+                return;
+            }
+            
+            Medicamento med = medicamentoDAO.buscarPorId(medicamentoId);
+            if(med != null && med.getPrecio() != null){
+                vistaVentas.getTxtPrecio().setText(med.getPrecio().toString());
+            }else{
+                vistaVentas.getTxtPrecio().setText("0.00");
+            }
+        }catch(ErrorAccesoDatosExceptions e){
+            vistaVentas.getTxtPrecio().setText("0.00");
+        }
     }
     
     /**
@@ -103,7 +149,7 @@ public class ControladorVenta implements ActionListener{
             }
             
             for(Cliente c : clientes){
-                String nombre = c.getNombre();
+                String nombre = c.getNombre() + " " + c.getApellido();
                 vistaVentas.getCbxClientes().addItem(nombre);
                 clientesMap.put(nombre, c.getId());
             }
@@ -155,8 +201,12 @@ public class ControladorVenta implements ActionListener{
         if(e.getSource() == vistaVentas.getBtnGuardarVenta()){
             guardarVentas();
         }
-        if(e.getSource() == vistaVentas.getBtnCancelar()){
+        if(e.getSource() == vistaVentas.getBtnCancelar() || e.getSource() == vistaVentas.getBtnNuevaVenta()){
             limpiarCampos();
+        }
+        if(e.getSource() == vistaVentas.getBtnMenuPrincipal()){
+            this.vistaVentas.setVisible(false);
+            ctMenu.volverAlMenu();
         }
     }
     
@@ -203,18 +253,8 @@ public class ControladorVenta implements ActionListener{
             }
             
             Medicamento med = medicamentoDAO.buscarPorId(medicamentoId);
-            
-            if(med == null){
-                JOptionPane.showMessageDialog(vistaVentas, "¡ATENCION!", 
-                        "No se encontro el Medicamento en la base de datos.", 
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            // Se crea el detalle
             DetalleVenta detalle = new DetalleVenta(med, cantidad);
             
-            // Se valida usando el servicio
             if(!ventaService.validarDetalles(detalle, med)){
                 String mensaje = "Error en los datos del detalle:\n";
                 
@@ -231,35 +271,14 @@ public class ControladorVenta implements ActionListener{
                 return;
             }
             
-            // Métodos que calculan el total usando los valores por defecto del sistema.
+            // Métodos que solo calcula subtotal e impuesto, sin descuento
             detalle = ventaService.calculoTotalDetallesDefualt(detalle);
-            
-            /**
-             * Método que calcula los totales definiendo datos de descuentos
-             * y porcentaje de impuesto manipulados manualmente desde la vista.
-             */
-            
-            /*try{
-                BigDecimal porcentajeImp = new BigDecimal(vistaVentas.getTxtImpuesto().getText())
-                        .divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP);
-               BigDecimal porcentajeDesc = new BigDecimal(vistaVentas.getTxtDescuento().getText())
-                        .divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP);
-               
-               detalle = ventaService.calcularTotalesPersonalizados(detalle, porcentajeImp, porcentajeDesc);
-            }catch(NumberFormatException ex){
-                // Si hay error en los porcentajes, usa los valores por defecto
-                detalle = ventaService.calculoTotalDetallesDefualt(detalle);
-            }*/
             
             // Una vez hechos las validaciones necesarias se agregan los detalles a la lista.
             detallesVentas.add(detalle);
             
             actualizarTabla();
             calcularTotales();
-            
-            // Se limpian los campos y se enfocan
-            vistaVentas.getTxtCantidad().setText("");
-            vistaVentas.getTxtCantidad().requestFocus();
             
             // Verificamos y mostramos un mensaje descuento positivo
             BigDecimal subtotalActual = obtenerSubtotalActual();
@@ -273,7 +292,6 @@ public class ControladorVenta implements ActionListener{
                     "¡ATENCION!",  
                     "Hubo un error al cargar detalles." + e.getMessage(),
                     JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
     }
     
@@ -326,26 +344,35 @@ public class ControladorVenta implements ActionListener{
     
     /**
      * Método que utiliza VentaService para calcular los totales de ventas.
+     * No aplica el descuento correspondiente hasta confirmar la venta.
      */
     
     private void calcularTotales(){
         try{
             BigDecimal subtotal = BigDecimal.ZERO;
             BigDecimal totalImpuesto = BigDecimal.ZERO;
-            BigDecimal totalDescuento = BigDecimal.ZERO;
             BigDecimal totalFinal = BigDecimal.ZERO;
             
             // Sumamos todos los totales
             for(DetalleVenta dv : detallesVentas){
                 subtotal = subtotal.add(dv.getSubtotal());
                 totalImpuesto = totalImpuesto.add(dv.getImpuesto());
-                totalDescuento = totalDescuento.add(dv.getDescuento());
                 totalFinal = totalFinal.add(dv.getPrecioFinal());
             }
             
             /**Se actualizan los campos correspondientes**/
             vistaVentas.getTxtSubtotal().setText(subtotal.setScale(2, RoundingMode.HALF_UP).toString());
+            vistaVentas.getTxtImpuesto().setText(totalImpuesto.setScale(2, RoundingMode.HALF_UP).toString());
             vistaVentas.getTxtTotal().setText(totalFinal.setScale(2, RoundingMode.HALF_UP).toString());
+            
+            // Mostramos los posibles descuentos
+            if(ventaService.calificaParaDescuento(subtotal)){
+                BigDecimal descuentoPotencial = subtotal.multiply(ventaService.getDescuentoDefault())
+                        .setScale(2, RoundingMode.HALF_UP);
+                vistaVentas.getTxtDescuentoTotal().setText("" + descuentoPotencial);
+            }else{
+                vistaVentas.getTxtDescuentoTotal().setText("0.00");
+            }
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(vistaVentas, 
@@ -389,6 +416,9 @@ public class ControladorVenta implements ActionListener{
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            
+            /** Se aplican los descuentos si corresponden*/
+            detallesVentas = ventaService.aplicarDescuentoDefault(detallesVentas);
             
             /** Se crea la venta y se agregan los detalles*/
             Venta ventas = new Venta(clienteId, new java.sql.Date(System.currentTimeMillis()));
@@ -446,12 +476,11 @@ public class ControladorVenta implements ActionListener{
                         "Hubo un error al guardar la venta en la Base de Datos",
                         JOptionPane.ERROR_MESSAGE);
             }
-        }catch(Exception e){
+        }catch(ErrorAccesoDatosExceptions e){
             JOptionPane.showMessageDialog(vistaVentas,
                     "¡ATENCION!",
                     "Hubo un error al guardar la venta" + e.getMessage(),
                     JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
     }
     
@@ -461,9 +490,11 @@ public class ControladorVenta implements ActionListener{
     
     private void limpiarCampos(){
         vistaVentas.getTxtCantidad().setText("");
+        vistaVentas.getTxtPrecio().setText("0.00");
         vistaVentas.getTxtSubtotal().setText("0.00");
         vistaVentas.getTxtTotal().setText("0.00");
-        vistaVentas.getTxtDescuento().setText("0");
+        vistaVentas.getTxtDescuentoTotal().setText("0.00");
+        vistaVentas.getTxtCantidad().requestFocus();
         
         /** Tambien se restaura el IVA por defecto desde el servicio*/
         vistaVentas.getTxtImpuesto().setText(

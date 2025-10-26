@@ -36,8 +36,12 @@ public class ControladorMenu implements ActionListener{
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == vista.getBtnCliente()){
             ventanaCliente();
-        } else if(e.getSource() == vista.getBtnInventario()){
+        } 
+        if(e.getSource() == vista.getBtnInventario()){
             ventanaInventario();
+        }
+        if(e.getSource() == vista.getBtnVentas()){
+            ventanaVentas();
         }
     }
     
@@ -79,13 +83,12 @@ public class ControladorMenu implements ActionListener{
         }
     }
     
-    /*private void VentanaVentas(){
+    private void ventanaVentas(){
         try{
             vista.setVisible(false);
             
             FrmVenta vtVentas = new FrmVenta();
-            VentaDAO ventaDAO = new VentaDAO();
-            ControladorVenta ctVentas = new ControladorVenta(vtVentas, ventaDAO, this);
+            ControladorVenta ctVentas = new ControladorVenta(vtVentas, this);
             
             vistaActual = vtVentas;
             vtVentas.setVisible(true);
@@ -96,7 +99,7 @@ public class ControladorMenu implements ActionListener{
                 JOptionPane.ERROR_MESSAGE);
             vista.setVisible(true);  
         }
-    }*/
+    }
     
     /*private void VentanaInformes(){
         try{
