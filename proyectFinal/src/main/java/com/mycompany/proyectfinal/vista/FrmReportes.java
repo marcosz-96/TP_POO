@@ -1,7 +1,8 @@
 package com.mycompany.proyectfinal.vista;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class FrmReportes extends javax.swing.JFrame {
@@ -27,9 +28,12 @@ public class FrmReportes extends javax.swing.JFrame {
         lblRegistrosTotales = new javax.swing.JLabel();
         pnlHistorialVentas = new javax.swing.JPanel();
         scrollHistorialVentas = new javax.swing.JScrollPane();
-        tblHitorialVentas = new javax.swing.JTable();
+        tblHistorialVentas = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
         pnlBusquedaHistorial = new javax.swing.JPanel();
+        lblBuscarPorFecha = new javax.swing.JLabel();
+        cbxBuscarPorFecha = new javax.swing.JComboBox<>();
+        btnBuscarVentas = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,31 +111,23 @@ public class FrmReportes extends javax.swing.JFrame {
 
         pnlHistorialVentas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial de Ventas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Narrow", 0, 10))); // NOI18N
 
-        tblHitorialVentas.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        tblHitorialVentas.setModel(new javax.swing.table.DefaultTableModel(
+        tblHistorialVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "venta_id", "fecha_hora", "cliente", "medicamento", "precio_unitario", "cantidad", "subtotal", "impuesto", "porc_descuento", "descuento_cobro", "total_final"
+                "venta_id", "fecha_hora", "cliente", "medicamento", "precio_unitario", "cantidad", "subtotal", "impuesto", "descuento", "total_final"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        scrollHistorialVentas.setViewportView(tblHitorialVentas);
+        scrollHistorialVentas.setViewportView(tblHistorialVentas);
 
         javax.swing.GroupLayout pnlHistorialVentasLayout = new javax.swing.GroupLayout(pnlHistorialVentas);
         pnlHistorialVentas.setLayout(pnlHistorialVentasLayout);
@@ -145,7 +141,8 @@ public class FrmReportes extends javax.swing.JFrame {
         pnlHistorialVentasLayout.setVerticalGroup(
             pnlHistorialVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHistorialVentasLayout.createSequentialGroup()
-                .addComponent(scrollHistorialVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(scrollHistorialVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -155,15 +152,46 @@ public class FrmReportes extends javax.swing.JFrame {
 
         pnlBusquedaHistorial.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones de Busqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Narrow", 0, 10))); // NOI18N
 
+        lblBuscarPorFecha.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        lblBuscarPorFecha.setText("Buscar Venta por Fecha:");
+
+        cbxBuscarPorFecha.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        cbxBuscarPorFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxBuscarPorFechaActionPerformed(evt);
+            }
+        });
+
+        btnBuscarVentas.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        btnBuscarVentas.setText("Buscar Ventas");
+        btnBuscarVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarVentasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlBusquedaHistorialLayout = new javax.swing.GroupLayout(pnlBusquedaHistorial);
         pnlBusquedaHistorial.setLayout(pnlBusquedaHistorialLayout);
         pnlBusquedaHistorialLayout.setHorizontalGroup(
             pnlBusquedaHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnlBusquedaHistorialLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblBuscarPorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxBuscarPorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBuscarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnlBusquedaHistorialLayout.setVerticalGroup(
             pnlBusquedaHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 73, Short.MAX_VALUE)
+            .addGroup(pnlBusquedaHistorialLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(pnlBusquedaHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBuscarPorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxBuscarPorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarVentas))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -213,25 +241,36 @@ public class FrmReportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalGeneradoActionPerformed
 
+    private void btnBuscarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarVentasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarVentasActionPerformed
+
+    private void cbxBuscarPorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarPorFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxBuscarPorFechaActionPerformed
+
     public JButton getBtnVolverAlMenu() {return btnVolverAlMenu;}
+    public JButton getBtnBuscarcarVentas() {return btnBuscarVentas;}
     public JTextField getCantidadVentas() {return txtCantidadVentas;}
     public JTextField getTotalGenerado() {return txtTotalGenerado;}
-    /**
-     * @param args the command line arguments
-     */
+    public JComboBox getCbxBuscarPorFecha() {return cbxBuscarPorFecha;}
+    public JTable getTblHistorialVentas() {return tblHistorialVentas;}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarVentas;
     private javax.swing.JButton btnVolverAlMenu;
+    private javax.swing.JComboBox<String> cbxBuscarPorFecha;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblBuscarPorFecha;
     private javax.swing.JLabel lblCantidadVentas;
     private javax.swing.JLabel lblRegistrosTotales;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlBusquedaHistorial;
     private javax.swing.JPanel pnlHistorialVentas;
     private javax.swing.JScrollPane scrollHistorialVentas;
-    private javax.swing.JTable tblHitorialVentas;
+    private javax.swing.JTable tblHistorialVentas;
     private javax.swing.JTextField txtCantidadVentas;
     private javax.swing.JTextField txtTotalGenerado;
     // End of variables declaration//GEN-END:variables

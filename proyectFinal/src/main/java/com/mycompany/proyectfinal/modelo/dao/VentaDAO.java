@@ -114,7 +114,7 @@ public class VentaDAO implements IVenta{
     @Override
     public List<Venta> listaDeVentas()throws ErrorAccesoDatosExceptions{
         List<Venta> listaV = new ArrayList(); // listaV = Lista de Ventas
-        String sql = "SELECT * FROM venta";
+        String sql = "SELECT * FROM venta ORDER BY fecha_hora DESC";
         
         try(Connection con = Conexion.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);

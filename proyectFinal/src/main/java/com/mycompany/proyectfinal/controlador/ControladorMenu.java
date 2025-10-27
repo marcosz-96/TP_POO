@@ -2,11 +2,11 @@ package com.mycompany.proyectfinal.controlador;
 
 import com.mycompany.proyectfinal.modelo.dao.ClienteDAO;
 import com.mycompany.proyectfinal.modelo.dao.MedicamentoDAO;
-import com.mycompany.proyectfinal.modelo.dao.VentaDAO;
 import com.mycompany.proyectfinal.modelo.excepciones.ErrorAccesoDatosExceptions;
 import com.mycompany.proyectfinal.vista.FrmCliente;
 import com.mycompany.proyectfinal.vista.FrmMedicamento;
 import com.mycompany.proyectfinal.vista.FrmMenu;
+import com.mycompany.proyectfinal.vista.FrmReportes;
 import com.mycompany.proyectfinal.vista.FrmVenta;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,6 +42,9 @@ public class ControladorMenu implements ActionListener{
         }
         if(e.getSource() == vista.getBtnVentas()){
             ventanaVentas();
+        }
+        if(e.getSource() == vista.getBtnInformes()){
+            ventanaInformes();
         }
     }
     
@@ -101,24 +104,23 @@ public class ControladorMenu implements ActionListener{
         }
     }
     
-    /*private void VentanaInformes(){
+    private void ventanaInformes(){
         try{
             vista.setVisible(false);
             
             FrmReportes vtReportes = new FrmReportes();
-            DetalleVentaDAO dtVentaDAO = new DetalleVentaDAO();
-            ControladorReporte ctReporte = new ControladorReporte(vtReportes, dtVentaDAO, this);
+            ControladorReporte ctReporte = new ControladorReporte(vtReportes, this);
             
             vistaActual = vtReportes;
             vtReportes.setVisible(true);
-        } catch(ErrorAccesoDatosExceptions ex){
+        }catch(ErrorAccesoDatosExceptions ex){
             Logger.getLogger(ControladorMenu.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(vista, "¡ERROR! Al intentar abrir ventana de Informes." + ex.getMessage(),
                 "ERROR", 
                 JOptionPane.ERROR_MESSAGE);
             vista.setVisible(true);    
         }
-    }*/
+    }
     
     /**
      * Método para volver al menú desde cualquier ventana

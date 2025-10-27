@@ -41,7 +41,7 @@ public class FrmCliente extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         pnlTablaDatos = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollClientes = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
 
         jRadioButton1.setText("jRadioButton1");
@@ -200,7 +200,7 @@ public class FrmCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         pnlDatosClientesLayout.setVerticalGroup(
             pnlDatosClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,17 +241,17 @@ public class FrmCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblClientes);
+        scrollClientes.setViewportView(tblClientes);
 
         javax.swing.GroupLayout pnlTablaDatosLayout = new javax.swing.GroupLayout(pnlTablaDatos);
         pnlTablaDatos.setLayout(pnlTablaDatosLayout);
         pnlTablaDatosLayout.setHorizontalGroup(
             pnlTablaDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 665, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(pnlTablaDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlTablaDatosLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                    .addComponent(scrollClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         pnlTablaDatosLayout.setVerticalGroup(
@@ -260,7 +260,7 @@ public class FrmCliente extends javax.swing.JFrame {
             .addGroup(pnlTablaDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTablaDatosLayout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(38, 38, 38)))
         );
 
@@ -302,7 +302,9 @@ public class FrmCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,9 +332,6 @@ public class FrmCliente extends javax.swing.JFrame {
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
 
-        /*FrmMenu frmMenu = new FrmMenu();
-        frmMenu.setVisible(true);
-        this.dispose();*/
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
@@ -406,7 +405,6 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblApellido;
@@ -414,6 +412,7 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JPanel pnlBotoneraAcciones;
     private javax.swing.JPanel pnlDatosClientes;
     private javax.swing.JPanel pnlTablaDatos;
+    private javax.swing.JScrollPane scrollClientes;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDNI;
