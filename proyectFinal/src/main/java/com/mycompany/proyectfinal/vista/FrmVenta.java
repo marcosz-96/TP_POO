@@ -72,6 +72,7 @@ public class FrmVenta extends javax.swing.JFrame {
 
         txtFecha.setEditable(false);
         txtFecha.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        txtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaActionPerformed(evt);
@@ -298,7 +299,7 @@ public class FrmVenta extends javax.swing.JFrame {
         jLabel2.setText("Descuento Total $:");
 
         txtDescuentoTotal.setEditable(false);
-        txtDescuentoTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtDescuentoTotal.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         txtDescuentoTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDescuentoTotalActionPerformed(evt);

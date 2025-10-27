@@ -255,14 +255,14 @@ public class ServiceVenta {
         
         StringBuilder resumen = new StringBuilder();
         resumen.append("=== RESUMEN DE VENTA ===\n");
-        resumen.append("------------------------\n");
+        resumen.append("---------------------------------------------\n");
         resumen.append("Cantidad de Items: ").append(venta.getDetalles().size()).append("\n");
         resumen.append("Subtotal: $").append(venta.getSubtotalBruto()).append("\n");
         resumen.append("Impuesto: $").append(venta.getImpuestoTotal()).append("\n");
         resumen.append("Descuento: $").append(venta.getDescuentoTotal()).append("\n");
-        resumen.append("------------------------\n");
+        resumen.append("---------------------------------------------\n");
         resumen.append("TOTAL FINAL: $").append(venta.getTotalFinal()).append("\n");
-        resumen.append("------------------------");
+        resumen.append("---------------------------------------------");
         
         return resumen.toString();
     }

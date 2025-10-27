@@ -15,9 +15,11 @@ import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -62,7 +64,8 @@ public class ControladorVenta implements ActionListener{
     }
     
     private void inicializarVista(){
-       vistaVentas.getTxtFecha().setText(java.time.LocalDate.now().toString());
+       DateTimeFormatter formatoFH = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+       vistaVentas.getTxtFecha().setText(LocalDateTime.now().format(formatoFH));
        
        vistaVentas.getTxtImpuesto().setText(ventaService.getIvaDefault()
                                             .multiply(BigDecimal.valueOf(100))
@@ -91,12 +94,9 @@ public class ControladorVenta implements ActionListener{
        vistaVentas.getBtnCancelar().addActionListener(this);
        vistaVentas.getBtnMenuPrincipal().addActionListener(this);
        
-       vistaVentas.getCbxMedicamento().addItemListener(new ItemListener(){
-           @Override
-           public void itemStateChanged(ItemEvent e){
-               if(e.getStateChange() == ItemEvent.SELECTED){
-                   mostrarPrecioUnitario();
-               }
+       vistaVentas.getCbxMedicamento().addItemListener((ItemEvent e) -> {
+           if(e.getStateChange() == ItemEvent.SELECTED){
+               mostrarPrecioUnitario();
            }
        });
     }
@@ -421,7 +421,7 @@ public class ControladorVenta implements ActionListener{
             detallesVentas = ventaService.aplicarDescuentoDefault(detallesVentas);
             
             /** Se crea la venta y se agregan los detalles*/
-            Venta ventas = new Venta(clienteId, new java.sql.Date(System.currentTimeMillis()));
+            Venta ventas = new Venta(clienteId, new Timestamp(System.currentTimeMillis()));
             
             /** Se agregan y recalculan automaticamente cada detalle a la venta*/
             for(DetalleVenta detalles : detallesVentas){

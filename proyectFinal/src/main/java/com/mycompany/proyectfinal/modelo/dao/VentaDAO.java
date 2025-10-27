@@ -30,7 +30,7 @@ public class VentaDAO implements IVenta{
     
     @Override
     public int insert(Venta v) throws ErrorAccesoDatosExceptions{
-        String sql = "INSERT INTO venta(fecha, cliente_id, subtotal, impuesto_total"
+        String sql = "INSERT INTO venta(fecha_hora, cliente_id, subtotal, impuesto_total"
                 + " descuento_total, total) VALUES(?,?,?,?,?,?)";
         try(Connection con = Conexion.getConnection();
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
@@ -89,7 +89,7 @@ public class VentaDAO implements IVenta{
                 if(rs.next()){
                     return new Venta(
                         rs.getInt("id"),
-                        rs.getDate("fecha"),
+                        rs.getTimestamp("fecha_hora"),
                         rs.getInt("cliente_id"),
                         rs.getBigDecimal("subtotal"),
                         rs.getBigDecimal("impuesto_total"),
@@ -123,7 +123,7 @@ public class VentaDAO implements IVenta{
             while(rs.next()){
                 listaV.add(new Venta(
                     rs.getInt("id"),
-                    rs.getDate("fecha"),
+                    rs.getTimestamp("fecha_hora"),
                     rs.getInt("cliente_id"),
                     rs.getBigDecimal("subtotal"),
                     rs.getBigDecimal("impuesto_total"),

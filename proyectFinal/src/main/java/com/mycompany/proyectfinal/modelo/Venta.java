@@ -1,7 +1,7 @@
 package com.mycompany.proyectfinal.modelo;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Venta {
     private int id;
-    private Date fecha;
+    private Timestamp fecha;
     private int clienteId;
     private BigDecimal subtotalBruto; 
     private BigDecimal impuestoTotal;
@@ -44,7 +44,7 @@ public class Venta {
      * @param fecha Fecha de la venta
      */
     
-    public Venta(int clienteId, Date fecha){
+    public Venta(int clienteId, Timestamp fecha){
         this();
         this.clienteId = clienteId;
         this.fecha = fecha;
@@ -63,7 +63,7 @@ public class Venta {
      * @param totalFinal Total final de la venta
      */
     
-    public Venta(int id, Date fecha, int clienteId, BigDecimal subtotalBruto, BigDecimal impuestoTotal, BigDecimal descuentoTotal, BigDecimal totalFinal){
+    public Venta(int id, Timestamp fecha, int clienteId, BigDecimal subtotalBruto, BigDecimal impuestoTotal, BigDecimal descuentoTotal, BigDecimal totalFinal){
         this.id = id;
         this.fecha = fecha;
         this.clienteId = clienteId;
@@ -83,11 +83,11 @@ public class Venta {
         this.id = id;
     }
     
-    public Date getFecha(){
+    public Timestamp getFecha(){
         return fecha;
     }
     
-    public void setFecha(Date fecha){
+    public void setFecha(Timestamp fecha){
         this.fecha = fecha;
     }
     
